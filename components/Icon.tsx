@@ -1,4 +1,4 @@
-import {IconUserCircle, IconHome, IconPackages, IconUsers, IconAffiliate, IconPencilStar, IconMathFunction, IconChartBar, IconTable } from '@tabler/icons-react';
+import {IconUserCircle, IconHome, IconPackages, IconUsers, IconAffiliate, IconPencilStar, IconMathFunction, IconChartBar, IconTable, IconPlus } from '@tabler/icons-react';
 
 export const Icons = {
     avatar: IconUserCircle,
@@ -9,5 +9,6 @@ export const Icons = {
     penilaian: IconPencilStar,
     perhitungan: IconMathFunction,
     hasil:IconChartBar,
-    tabel: IconTable
+    tabel: IconTable,
+    add: IconPlus
 }
