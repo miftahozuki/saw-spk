@@ -26,7 +26,7 @@ const AlternatifTable = async () => {
             <td>
               <div className="btn-list flex-nowrap">
                 <EditButton />
-                <DeleteButton />
+                <DeleteButton id={alternatif.id}/>
               </div>
             </td>
           </tr>

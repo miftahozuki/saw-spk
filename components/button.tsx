@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icons } from "@/components/Icon";
+import { deleteAlternatif } from "@/lib/action";
 
 export const AddButton = () => {
   return (
@@ -19,7 +20,7 @@ export const AddButton = () => {
         data-bs-target="#add"
         aria-label="Create new report"
       >
-        <Icons.add stroke={1} /> Tambah
+        <Icons.add stroke={1} />
       </Link>
     </>
   );
@@ -33,14 +34,32 @@ export const EditButton = () => {
   );
 };
 
-export const DeleteButton = () => {
+export const DeleteButton = ({id}:{id:number}) => {
+  const DeleteAlternatifById = deleteAlternatif.bind(null, id);
+
   return (
-    <Link
-      href="#"
-      className="btn btn-outline-danger"
-      data-confirm-delete="true"
-    >
+    <form action={DeleteAlternatifById}>
+    <button
+      className="btn btn-outline-danger">
       Hapus
-    </Link>
+    </button>
+    </form>
+  );
+};
+
+export const CancelButton = () => {
+  return (
+    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
+      Batal
+    </button>
+  );
+};
+
+export const SubmitButton = () => {
+  return (
+    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
+      <i className="bi bi-floppy-fill me-2" />
+      Simpan
+    </button>
   );
 };
