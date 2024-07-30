@@ -1,6 +1,9 @@
+"use client"
+
 import React from "react";
 import Link from 'next/link';
 import {Icons} from "@/components/Icon"
+import Clock from 'react-live-clock';
 
 export default function NavBar() {
   return (
@@ -32,7 +35,11 @@ export default function NavBar() {
           <div className="navbar-nav flex-row order-md-last">
             <div className="nav-item d-none d-md-flex me-3">
               <div className="btn-list">
-                <div className="btn clock">12 : 10 : 00</div>
+                <div className="btn clock">
+                <Clock
+          format={'HH:mm:ss'}
+          ticking={true} />
+                </div>
               </div>
             </div>
             <div className="d-none d-md-flex">
@@ -112,7 +119,7 @@ export default function NavBar() {
                 <div className="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                   <div className="card">
                     <div className="card-header">
-                      <h3 className="card-title">Terkini</h3>
+                      <h3 className="card-title">Notifikasi</h3>
                     </div>
                     <div className="list-group list-group-flush list-group-hoverable">
                       <div className="list-group-item">
@@ -122,11 +129,11 @@ export default function NavBar() {
                           </div>
                           <div className="col text-truncate">
                             <a href="#" className="text-body d-block">
-                              Weather
+                            
                             </a>
-                            <div className="d-block text-muted text-truncate mt-n1">
+                            {/* <div className="d-block text-muted text-truncate mt-n1">
                               Nothing to see Lorem ipsum dolor sit amet.
-                            </div>
+                            </div> */}
                           </div>
                           <div className="col-auto">
                             <a href="#" className="list-group-item-actions">

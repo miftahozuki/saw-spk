@@ -1,35 +1,32 @@
-import { CancelButton, SubmitButton } from "@/components/button"
-import { saveAlternatif } from "@/lib/action"
+import { SubmitButton } from "@/components/button";
+import { Icons } from "@/components/Icon";
+import { BackButton } from "@/components/back-button";
+import { saveAlternatif } from "@/lib/action";
 
-export const CreateAlternatif = () => {
+export const CreateAlternatif = async () => {
+
   return (
-    <div className="modal" id="add" tabIndex={-1}>
-  <div className="modal-dialog modal-md" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title">Tambah Karyawan</h5>
-        <button
-          type="button"
-          className="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        />
-      </div>
+    <div className="row align-items-center">
       <form action={saveAlternatif}>
-        <div className="modal-body">
-          <div className="mb-3">
-            <label className="form-label">Nama Karyawan</label>
-            <input type="text" className="form-control" name="nama" required/>
+        <div className="col-md">
+          <div className="form-label">
+            <Icons.nama className="me-2" />
+            Nama Alternatif
           </div>
+          <input
+            type="text"
+            className="form-control mt-4"
+            name="nama"
+            placeholder="Masukkan Nama"
+          required/>
         </div>
-        <div className="modal-footer justify-content-end">
-            <CancelButton/>
-            <SubmitButton/>
+        <div className=" bg-transparent mt-4">
+          <div className="btn-list justify-content-between">
+            <BackButton />
+            <SubmitButton />
+          </div>
         </div>
       </form>
     </div>
-  </div>
-</div>
-
-  )
-}
+  );
+};

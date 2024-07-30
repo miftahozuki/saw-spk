@@ -6,20 +6,14 @@ export const AddButton = () => {
   return (
     <>
       <Link
-        href="#"
+        href="/admin/alternatif/add"
         className="btn btn-primary d-none d-sm-inline-block"
-        data-bs-toggle="modal"
-        data-bs-target="#add"
       >
         <Icons.add stroke={1} /> Tambah
       </Link>
       <Link
-        href="#"
-        className="btn btn-primary d-sm-none btn-icon"
-        data-bs-toggle="modal"
-        data-bs-target="#add"
-        aria-label="Create new report"
-      >
+        href="/admin/alternatif/add"
+        className="btn btn-primary d-sm-none btn-icon">
         <Icons.add stroke={1} />
       </Link>
     </>
@@ -59,8 +53,8 @@ export const CancelButton = () => {
 
 export const SubmitButton = () => {
   return (
-    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
-      <i className="bi bi-floppy-fill me-2" />
+    <button type="submit" className="btn btn-primary">
+      <Icons.simpan className="me-2"/>
       Simpan
     </button>
   );

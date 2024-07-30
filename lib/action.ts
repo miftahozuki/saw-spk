@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 
 export const saveAlternatif = async(formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
+    console.log(data);
+    
     
     try {
         await prisma.alternatif.create({
@@ -17,6 +19,7 @@ export const saveAlternatif = async(formData: FormData) => {
     }
     
     revalidatePath("admin/alternatif");
+    redirect("/admin/alternatif");
 }
 
 export const deleteAlternatif = async(id: number) => {
