@@ -20,7 +20,7 @@ const AlternatifTable = async () => {
         </thead>
         <tbody>
           {alternatifs.map((alternatif:any, index:number) => (
-          <tr>
+          <tr key={alternatif.id}>
             <td className="text-center">{index +1}.</td>
             <td>{alternatif.nama}</td>
             <td>
