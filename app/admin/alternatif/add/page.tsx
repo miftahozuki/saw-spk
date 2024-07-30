@@ -1,7 +1,7 @@
 import {Icons} from "@/components/Icon";
 import { CreateAlternatif } from "@/components/create-form";
 
-export const AddAlternatifPage = () => {
+const AddAlternatifPage = () => {
     return (
         <>
           <div className="page-header d-print-none">

@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from 'next/link';
-import {Icons} from "@/components/Icon"
+import {Icons} from "@/components/Icon";
 import Clock from 'react-live-clock';
+import Image from 'next/image';
 
 export default function NavBar() {
   return (
@@ -23,7 +24,7 @@ export default function NavBar() {
           </button>
           <h1 className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="#">
-              <img
+              <Image
                 src="/logo.png"
                 width="110"
                 height="32"
