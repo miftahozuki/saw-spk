@@ -26,9 +26,10 @@ export const AddButton = () => {
   );
 };
 
-export const EditButton = () => {
+export const EditButton = ({id}:{id:string}) => {
+
   return (
-    <Link href="#" className="btn btn-outline-success">
+    <Link href={`/admin/alternatif/edit/${id}`} className="btn btn-outline-success">
       Edit
     </Link>
   );
@@ -55,11 +56,21 @@ export const CancelButton = () => {
   );
 };
 
+
 export const SubmitButton = () => {
   return (
     <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
       <i className="bi bi-floppy-fill me-2" />
       Simpan
+    </button>
+  );
+};
+
+export const UpdateButton = () => {
+  return (
+    <button type="submit" className="btn btn-primary">
+      <Icons.simpan className="me-2"/>
+      Ubah
     </button>
   );
 };

@@ -7,7 +7,7 @@ export const CreateAlternatif = () => {
   <div className="modal-dialog modal-md" role="document">
     <div className="modal-content">
       <div className="modal-header">
-        <h5 className="modal-title">Tambah Data Karyawan</h5>
+        <h5 className="modal-title">Tambah Karyawan</h5>
         <button
           type="button"
           className="btn-close"

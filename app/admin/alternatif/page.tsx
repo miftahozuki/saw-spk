@@ -2,6 +2,7 @@ import {Icons} from '@/components/Icon'
 import { AddButton } from '@/components/button';
 import AlternatifTable from '@/components/alternatif-table'
 import {CreateAlternatif} from '@/components/create-form'
+// import { EditAlternatif } from '@/components/edit-form';
 
 export default function AlternatifPage() {
   return (
@@ -45,6 +46,7 @@ export default function AlternatifPage() {
         </div>
       </div>
       <CreateAlternatif/>
+      {/* <EditAlternatif/> */}
     </>
   );
 }

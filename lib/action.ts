@@ -1,6 +1,7 @@
 "use server";
 import {prisma} from "@/lib/prisma"
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const saveAlternatif = async(formData: FormData) => {
     const data = Object.fromEntries(formData.entries());
@@ -28,4 +29,21 @@ export const deleteAlternatif = async(id: number) => {
     }
 
     revalidatePath("/admin/alternatif");
+}
+
+export const updateAlternatif = async(id: number, formData: FormData) => {
+    const data = Object.fromEntries(formData.entries());
+    
+    try {
+        await prisma.alternatif.update({
+            data: {
+                nama: data.nama.toString()
+            }, where: {id}
+        })
+    } catch (error) {
+        return {message: "Failed to update alternatif."}
+    }
+
+    revalidatePath("admin/alternatif");
+    redirect("/admin/alternatif");
 }

@@ -20,12 +20,12 @@ const AlternatifTable = async () => {
         </thead>
         <tbody>
           {alternatifs.map((alternatif:any, index:number) => (
-          <tr key={alternatif.id}>
+          <tr>
             <td className="text-center">{index +1}.</td>
             <td>{alternatif.nama}</td>
             <td>
               <div className="btn-list flex-nowrap">
-                <EditButton />
+                <EditButton id={alternatif.id}/>
                 <DeleteButton id={alternatif.id}/>
               </div>
             </td>
