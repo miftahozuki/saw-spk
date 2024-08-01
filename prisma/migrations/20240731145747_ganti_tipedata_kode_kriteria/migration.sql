@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Kriteria" ALTER COLUMN "kode" SET DATA TYPE TEXT;

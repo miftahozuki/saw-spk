@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Kriteria" ALTER COLUMN "bobot" SET DATA TYPE DOUBLE PRECISION;

@@ -1,18 +1,19 @@
 import Link from "next/link";
 import { Icons } from "@/components/Icon";
-import { deleteAlternatif } from "@/lib/action";
+import { deleteAlternatif, deleteKriteria } from "@/lib/action";
 
-export const AddButton = () => {
+export const AddButton = ({href}: {href:string}) => {
+
   return (
     <>
       <Link
-        href="/admin/alternatif/add"
+        href={href}
         className="btn btn-primary d-none d-sm-inline-block"
       >
         <Icons.add stroke={1} /> Tambah
       </Link>
       <Link
-        href="/admin/alternatif/add"
+        href={href}
         className="btn btn-primary d-sm-none btn-icon">
         <Icons.add stroke={1} />
       </Link>
@@ -20,20 +21,25 @@ export const AddButton = () => {
   );
 };
 
-export const EditButton = ({id}:{id:string}) => {
+export const EditButton =  ({ id, href }: { id: number, href: string }) => {
 
   return (
-    <Link href={`/admin/alternatif/edit/${id}`} className="btn btn-outline-success">
+    <Link href={`${href}/${id}`} className="btn btn-outline-success">
       Edit
     </Link>
   );
 };
 
-export const DeleteButton = ({id}:{id:number}) => {
-  const DeleteAlternatifById = deleteAlternatif.bind(null, id);
+export const DeleteButton = ({id, aksi}:{id:number, aksi:string}) => {
+  let Delete
+  if (aksi === 'alternatif') {
+    Delete = deleteAlternatif.bind(null, id)
+  } else if(aksi === 'kriteria') {
+    Delete = deleteKriteria.bind(null, id)
+  }
 
   return (
-    <form action={DeleteAlternatifById}>
+    <form action={Delete}>
     <button
       className="btn btn-outline-danger">
       Hapus
@@ -68,3 +74,4 @@ export const UpdateButton = () => {
     </button>
   );
 };
+

@@ -18,7 +18,7 @@ export default function AlternatifPage() {
             {/* Page title actions */}
             <div className="col-auto ms-auto d-print-none">
               <div className="btn-list">
-                <AddButton/>
+                <AddButton href="/admin/alternatif/add"/>
               </div>
             </div>
           </div>

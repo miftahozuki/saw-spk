@@ -3,8 +3,8 @@
 import React from "react";
 import Link from 'next/link';
 import {Icons} from "@/components/Icon";
-import Clock from 'react-live-clock';
 import Image from 'next/image';
+import Clock from "react-live-clock";
 
 export default function NavBar() {
   return (
@@ -36,11 +36,9 @@ export default function NavBar() {
           <div className="navbar-nav flex-row order-md-last">
             <div className="nav-item d-none d-md-flex me-3">
               <div className="btn-list">
-                <div className="btn clock">
-                <Clock
-          format={'HH:mm:ss'}
-          ticking={true} />
-                </div>
+              <div className="btn">
+                <Clock format={"HH:mm:ss"} ticking={true} />
+              </div>
               </div>
             </div>
             <div className="d-none d-md-flex">
