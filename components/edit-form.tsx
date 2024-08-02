@@ -1,8 +1,8 @@
 import { SubmitButton, UpdateButton } from "@/components/button";
 import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
-import type { Alternatif, Kriteria } from "@prisma/client";
-import { updateAlternatif, updateKriteria } from "@/lib/action";
+import type { Alternatif, Kriteria, subKriteria } from "@prisma/client";
+import { updateAlternatif, updateKriteria, updateSubKriteria } from "@/lib/action";
 
 export const EditAlternatif = async ({
   alternatif,
@@ -95,6 +95,50 @@ export const EditKriteria = async ({
             <option>Benefit</option>
             <option>Cost</option>
           </select>
+        </div>
+      </div>
+      <div className=" bg-transparent mt-4">
+        <div className="btn-list justify-content-between">
+          <BackButton />
+          <SubmitButton />
+        </div>
+      </div>
+      </form>
+    </>
+  );
+};
+
+export const EditSubKriteria = async ({subkriteria}: {subkriteria: subKriteria}) => {
+  const UpdateSubKriteriaWithId = updateSubKriteria.bind(null, subkriteria.id)
+  return (
+    <>
+    <form action={UpdateSubKriteriaWithId}>
+      <div className="row g-3">
+        <div className="col-md">
+          <div className="form-label">
+            <i className="bi bi-card-list me-2" />
+            Nama Sub Kriteria
+          </div>
+          <input
+            type="text"
+            className="form-control"
+            name="nama"
+            placeholder="Masukkan Nama"
+            defaultValue={subkriteria.nama}
+          required/>
+        </div>
+        <div className="col-md">
+          <div className="form-label">
+            <i className="bi bi-at me-1" />
+            Nilai
+          </div>
+          <input
+            type="number"
+            className="form-control"
+            name="nilai"
+            placeholder="Masukkan Nilai"
+            defaultValue={subkriteria.nilai}
+          required/>
         </div>
       </div>
       <div className=" bg-transparent mt-4">

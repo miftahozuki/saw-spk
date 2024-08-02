@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icons } from "@/components/Icon";
-import { deleteAlternatif, deleteKriteria } from "@/lib/action";
+import { deleteAlternatif, deleteKriteria, deleteSubKriteria } from "@/lib/action";
 
 export const AddButton = ({href}: {href:string}) => {
 
@@ -22,7 +22,7 @@ export const AddButton = ({href}: {href:string}) => {
 };
 
 export const EditButton =  ({ id, href }: { id: number, href: string }) => {
-
+  
   return (
     <Link href={`${href}/${id}`} className="btn btn-outline-success">
       Edit
@@ -36,6 +36,8 @@ export const DeleteButton = ({id, aksi}:{id:number, aksi:string}) => {
     Delete = deleteAlternatif.bind(null, id)
   } else if(aksi === 'kriteria') {
     Delete = deleteKriteria.bind(null, id)
+  } else if(aksi == 'subkriteria') {
+    Delete = deleteSubKriteria.bind(null, id)
   }
 
   return (

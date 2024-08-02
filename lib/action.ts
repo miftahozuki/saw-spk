@@ -1,6 +1,7 @@
 "use server";
 import {prisma} from "@/lib/prisma"
 import { JenisKriteria } from "@prisma/client";
+import { log } from "console";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -106,4 +107,55 @@ export const deleteKriteria = async(id: number) => {
 
     revalidatePath("/admin/kriteria")
     redirect("/admin/kriteria")
+}
+
+export const saveSubKriteria = async(id: number, formData: FormData) => {
+    const data = Object.fromEntries(formData.entries())
+    
+    try {
+        await prisma.subKriteria.create({
+            data:{
+                nama: data.nama.toString(),
+                nilai: Number(data.nilai),
+                kriteriaId: id
+            }
+        })
+    } catch (error) {
+        return {message: "Failed to add subkritria."}
+    }
+
+    revalidatePath("/admin/kriteria/subkriteria")
+    redirect("/admin/kriteria/subkriteria")
+}
+
+export const deleteSubKriteria = async(id: number) => {
+    try {
+        await prisma.subKriteria.delete({
+            where: {id}
+        })
+    } catch (error) {
+        return {message: "Failed to delete sub kriteria."}
+    }
+
+    revalidatePath("/admin/kriteria/subkriteria")
+    redirect("/admin/kriteria/subkriteria")
+}
+
+
+export const updateSubKriteria = async(id: number, formData: FormData) => {
+    const data = Object.fromEntries(formData.entries())
+    try {
+        await prisma.subKriteria.update({
+            data: {
+                nama: data.nama.toString(),
+                nilai: Number(data.nilai),
+            }, where: {id}
+        })
+        
+    } catch (error) {
+        return {message: "Failed to update sub kriteria"}
+    }
+
+    revalidatePath("/admin/kriteria/subkriteria")
+    redirect("/admin/kriteria/subkriteria")
 }

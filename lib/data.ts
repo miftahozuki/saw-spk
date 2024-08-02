@@ -26,7 +26,16 @@ export const getAlternatifById = async(id: number) => {
 
 export const getKriteria = async() => {
     try {
-        const kriteria = await prisma.kriteria.findMany();
+        const kriteria = await prisma.kriteria.findMany({
+            select:{
+                id: true,
+                kode: true,
+                nama: true,
+                bobot: true,
+                jenis: true,
+                subkriteria: true
+            }
+        });
         return kriteria
 
     } catch (error) {
@@ -43,5 +52,18 @@ export const getKriteriaById = async(id: number) => {
 
     } catch (error) {
         throw new Error("Failed to fetch kriteria data.")
+    }
+}
+
+export const getSubKriteriaByID = async(id: number) => {
+
+    try {
+        const subkriteria = await prisma.subKriteria.findUnique({
+            where: {id}
+        })
+        return subkriteria
+
+    } catch (error) {
+        throw new Error("Failed to fetch subkriteria data.")
     }
 }

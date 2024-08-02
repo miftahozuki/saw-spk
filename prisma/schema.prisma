@@ -27,6 +27,7 @@ model Kriteria {
   nama String
   bobot Float
   jenis JenisKriteria
+  subkriteria subKriteria[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -34,4 +35,14 @@ model Kriteria {
 enum JenisKriteria {
   Cost
   Benefit
+}
+
+model subKriteria {
+  id Int @id @default(autoincrement())
+  nama String
+  nilai Int
+  kriteria Kriteria @relation(fields: [kriteriaId], references: [id])
+  kriteriaId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

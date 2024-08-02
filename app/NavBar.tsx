@@ -239,7 +239,7 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" href="/admin/subkriteria">
+                  <Link className="nav-link" href="/admin/kriteria/subkriteria">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.subkriteria/>
                     </span>

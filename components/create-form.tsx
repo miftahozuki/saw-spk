@@ -1,7 +1,7 @@
 import { SubmitButton } from "@/components/button";
 import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
-import { saveAlternatif, saveKriteria } from "@/lib/action";
+import { saveAlternatif, saveKriteria, saveSubKriteria } from "@/lib/action";
 
 export const CreateAlternatif = async () => {
   return (
@@ -83,6 +83,49 @@ export const CreateKriteria = async () => {
     <option>Benefit</option>
     <option>Cost</option>
   </select>
+        </div>
+      </div>
+      <div className=" bg-transparent mt-4">
+        <div className="btn-list justify-content-between">
+          <BackButton />
+          <SubmitButton />
+        </div>
+      </div>
+      </form>
+    </>
+  );
+};
+
+export const CreateSubKriteria = async ({id}: {id:number}) => {
+  const AddSubKriteria = saveSubKriteria.bind(null, id)
+
+  return (
+    <>
+    <form action={AddSubKriteria}>
+      <div className="row g-3">
+        <div className="col-md">
+          <div className="form-label">
+            <i className="bi bi-card-list me-2" />
+            Nama Sub Kriteria
+          </div>
+          <input
+            type="text"
+            className="form-control"
+            name="nama"
+            placeholder="Masukkan Nama"
+          required/>
+        </div>
+        <div className="col-md">
+          <div className="form-label">
+            <i className="bi bi-at me-1" />
+            Nilai
+          </div>
+          <input
+            type="number"
+            className="form-control"
+            name="nilai"
+            placeholder="Masukkan Nilai"
+          required/>
         </div>
       </div>
       <div className=" bg-transparent mt-4">
