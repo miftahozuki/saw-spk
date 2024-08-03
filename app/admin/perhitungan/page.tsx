@@ -30,7 +30,7 @@ const PerhitunganPage = async() => {
         <div className="row row-cards">
           <div className="col-12">
             <MatriksKeputusanTable alternatif={alternatif} kriteria={kriteria}/>
-            {/* <MatriksNormalisasiTabel alternatif={alternatif} kriteria={kriteria}/> */}
+            <MatriksNormalisasiTabel alternatif={alternatif} kriteria={kriteria}/>
             <BobotTable kriteria={kriteria}/>
           </div>
         </div>

@@ -1,7 +1,9 @@
+"use client";
+
 import { Alternatif, Kriteria, Penilaian, subKriteria } from "@prisma/client";
 import { Icons } from "./Icon";
 import { normalisasi } from "@/lib/data";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 type AlternatifPenilaian = Alternatif & {
   penilaian: Penilaian[];
@@ -11,13 +13,17 @@ type KriteriaSubKriteria = Kriteria & {
   subkriteria: subKriteria[];
 };
 
-export const MatriksNormalisasiTabel = ({
-  alternatif,
-  kriteria,
-}: {
+export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
   alternatif: AlternatifPenilaian[];
   kriteria: KriteriaSubKriteria[];
 }) => {
+  const [r, setR] = useState(alternatif);
+
+  useEffect(() => {
+    const result = normalisasi(alternatif, kriteria);
+    setR(result);
+  }, [alternatif]);
+
   return (
     <>
       <div key={1} className="card mb-5">
@@ -43,7 +49,7 @@ export const MatriksNormalisasiTabel = ({
               </tr>
             </thead>
             <tbody>
-              {alternatif.map((alternatif, idx) => (
+              {r.map((alternatif, idx) => (
                 <tr key={alternatif.id}>
                   <td className="text-center">{idx + 1}</td>
                   <td>{alternatif.nama}</td>
