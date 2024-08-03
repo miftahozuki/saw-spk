@@ -5,8 +5,6 @@ import { getKriteria } from "@/lib/data";
 
 const SubKriteriaTable = async() => {
     const kriteria = await getKriteria()
-    console.log(kriteria);
-    
 
   return (
     <>

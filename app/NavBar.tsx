@@ -263,12 +263,12 @@ export default function NavBar() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" href="/admin/perhitungan">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.perhitungan/>
                     </span>
                     <span className="nav-link-title">Data Perhitungan</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="#">

@@ -1,8 +1,21 @@
 import {prisma} from "@/lib/prisma";
+import { Alternatif, Penilaian } from "@prisma/client";
+
+type AlternatifPenilaian = Alternatif & {
+    penilaian: Penilaian[]
+}
 
 export const getalternatifs = async() => {
     try {
         const alternatif = await prisma.alternatif.findMany({
+            select: {
+                id: true,
+                nama: true,
+                createdAt: true,
+                updatedAt: true,
+                penilaian: true
+
+            },
             orderBy: {
                 id: 'asc'
             }
@@ -33,8 +46,10 @@ export const getKriteria = async() => {
                 nama: true,
                 bobot: true,
                 jenis: true,
+                createdAt: true,
+                updatedAt: true,
                 subkriteria: true
-            }
+            }, orderBy: {id: 'asc'}
         });
         return kriteria
 
@@ -66,4 +81,18 @@ export const getSubKriteriaByID = async(id: number) => {
     } catch (error) {
         throw new Error("Failed to fetch subkriteria data.")
     }
+}
+
+export const getPenilaian = async() => {
+    try {
+       const nilai = await prisma.penilaian.findMany()
+       return nilai
+    } catch (error) {
+        throw new Error("Failed to fetch nilai data.")   
+    }
+}
+
+export const normalisasi = (alternatif: AlternatifPenilaian[]) => {
+    console.log(alternatif);
+    
 }
