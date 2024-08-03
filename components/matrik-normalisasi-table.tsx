@@ -48,7 +48,7 @@ export const MatriksNormalisasiTabel = ({
                   <td className="text-center">{idx + 1}</td>
                   <td>{alternatif.nama}</td>
                   {kriteria.map((kriteria) => (
-                    <td>
+                    <td key={kriteria.id}>
                       {
                         alternatif.penilaian.find(
                           (penilaian) => penilaian.kriteriaId === kriteria.id
