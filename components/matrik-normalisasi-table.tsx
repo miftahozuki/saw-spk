@@ -4,6 +4,7 @@ import { Alternatif, Kriteria, Penilaian, subKriteria } from "@prisma/client";
 import { Icons } from "./Icon";
 import { normalisasi } from "@/lib/data";
 import { useEffect, useState } from "react";
+import PerhitunganTabel from "./perhitungan-table";
 
 type AlternatifPenilaian = Alternatif & {
   penilaian: Penilaian[];
@@ -68,6 +69,7 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
           </table>
         </div>
       </div>
+      <PerhitunganTabel alternatif={r} kriteria={kriteria}/>
     </>
   );
 };

@@ -164,3 +164,13 @@ export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: Kriteri
 
     return ternormalisasi
 }
+
+export const getPreferensi = (penilaian : Penilaian[], kriteria: KriteriaSubKriteria[]) => {
+    const nilai = penilaian.reduce((acc, alternatif) => {
+        const bobot = kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot
+
+        return acc + (bobot? alternatif.nilai * bobot : 0)
+    }, 0)
+
+    return Number.isInteger(nilai) ? nilai: nilai.toFixed(2)
+}

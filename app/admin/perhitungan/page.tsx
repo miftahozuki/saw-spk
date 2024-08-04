@@ -2,6 +2,7 @@ import { Icons } from "@/components/Icon"
 import { BobotTable } from "@/components/bobot-table"
 import { MatriksKeputusanTable } from "@/components/matrik-keputusan-table"
 import { MatriksNormalisasiTabel } from "@/components/matrik-normalisasi-table"
+import PerhitunganTabel from "@/components/perhitungan-table"
 import { getKriteria, getalternatifs } from "@/lib/data"
 
 export const dynamic = "force-dynamic";
@@ -32,8 +33,8 @@ const PerhitunganPage = async() => {
         <div className="row row-cards">
           <div className="col-12">
             <MatriksKeputusanTable alternatif={alternatif} kriteria={kriteria}/>
-            <MatriksNormalisasiTabel alternatif={alternatif} kriteria={kriteria}/>
             <BobotTable kriteria={kriteria}/>
+            <MatriksNormalisasiTabel alternatif={alternatif} kriteria={kriteria}/>
           </div>
         </div>
       </div>
