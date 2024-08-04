@@ -2,7 +2,9 @@ import { Icons } from "@/components/Icon"
 import { BobotTable } from "@/components/bobot-table"
 import { MatriksKeputusanTable } from "@/components/matrik-keputusan-table"
 import { MatriksNormalisasiTabel } from "@/components/matrik-normalisasi-table"
-import { getKriteria, getPenilaian, getalternatifs } from "@/lib/data"
+import { getKriteria, getalternatifs } from "@/lib/data"
+
+export const dynamic = "force-dynamic";
 
 const PerhitunganPage = async() => {
   const alternatif = await getalternatifs()

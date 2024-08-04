@@ -1,7 +1,6 @@
 "use server";
 import {prisma} from "@/lib/prisma"
 import { JenisKriteria } from "@prisma/client";
-import { log } from "console";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
