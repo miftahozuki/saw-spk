@@ -38,6 +38,10 @@ export default function Home() {
           priority
         />
       </div>
+      
+      <div>
+        <a className="btn" href="admin/dashboard">Go to dashboard</a>
+      </div>
 
       <div className={styles.grid}>
         <a

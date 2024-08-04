@@ -1,6 +1,10 @@
+"use client"
+
 import Link from "next/link";
 import { Icons } from "@/components/Icon";
 import { deleteAlternatif, deleteKriteria, deleteSubKriteria } from "@/lib/action";
+import { useFormStatus } from "react-dom";
+import clsx from "clsx";
 
 export const AddButton = ({href}: {href:string}) => {
 
@@ -40,28 +44,29 @@ export const DeleteButton = ({id, aksi}:{id:number, aksi:string}) => {
     Delete = deleteSubKriteria.bind(null, id)
   }
 
+  const {pending} = useFormStatus()  
+  const classname = clsx("btn btn-outline-danger", {
+    "btn btn-outline-danger btn-loading" : pending
+  })
+
   return (
     <form action={Delete}>
     <button
-      className="btn btn-outline-danger">
+      className={classname}>
       Hapus
     </button>
     </form>
   );
 };
 
-export const CancelButton = () => {
-  return (
-    <button type="button" className="btn btn-danger" data-bs-dismiss="modal">
-      Batal
-    </button>
-  );
-};
-
-
 export const SubmitButton = () => {
+  const {pending} = useFormStatus()  
+  const classname = clsx("btn btn-primary", {
+    "btn btn-primary btn-loading" : pending
+  })
+
   return (
-    <button type="submit" className="btn btn-primary">
+    <button type="submit" className={classname}>
       <Icons.simpan className="me-2"/>
       Simpan
     </button>
@@ -69,8 +74,13 @@ export const SubmitButton = () => {
 };
 
 export const UpdateButton = () => {
+  const {pending} = useFormStatus()  
+  const classname = clsx("btn btn-primary", {
+    "btn btn-primary btn-loading" : pending
+  })
+
   return (
-    <button type="submit" className="btn btn-primary">
+    <button type="submit" className={classname}>
       <Icons.simpan className="me-2"/>
       Ubah
     </button>

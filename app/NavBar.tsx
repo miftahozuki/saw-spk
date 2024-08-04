@@ -5,8 +5,21 @@ import Link from 'next/link';
 import {Icons} from "@/components/Icon";
 import Image from 'next/image';
 import Clock from "react-live-clock";
+import { usePathname } from "next/navigation";
 
-export default function NavBar() {
+export default function NavBar(href: any) {
+  const pathname = usePathname()
+
+  const routes = {
+    dashboard: '/admin/dashboard',
+    kriteria: '/admin/kriteria',
+    subkriteria: '/admin/kriteria/subkriteria',
+    alternatif: '/admin/alternatif',
+    penilaian: '/admin/penilaian',
+    perhitungan: '/admin/perhitungan',
+    hasil: 'admin/hasil'
+  }
+
   return (
     <>
       <header className="navbar navbar-expand-md d-print-none">
@@ -204,8 +217,8 @@ export default function NavBar() {
           <div className="navbar">
             <div className="container-xl">
               <ul className="navbar-nav">
-                <li className="nav-item">
-                <Link className="nav-link" href={'/admin/dashboard'}>
+                <li className={`nav-item ${pathname === routes.dashboard ? 'active' : ''}`}>
+                <Link className="nav-link" href={routes.dashboard}>
                   {/* <a className="nav-link" href="#"> */}
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
@@ -230,31 +243,31 @@ export default function NavBar() {
                     </Link>
                   {/* </a> */}
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/admin/kriteria">
+                <li className={`nav-item ${pathname === routes.kriteria ? 'active' : ''}`}>
+                  <Link className="nav-link" href={routes.kriteria}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.kriteria/>
                     </span>
                     <span className="nav-link-title">Data Kriteria</span>
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/admin/kriteria/subkriteria">
+                <li className={`nav-item ${pathname === routes.subkriteria ? 'active' : ''}`}>
+                  <Link className="nav-link" href={routes.subkriteria}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.subkriteria/>
                     </span>
                     <span className="nav-link-title">Data Sub Kriteria</span>
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/admin/alternatif">
+                <li className={`nav-item ${pathname === routes.alternatif ? 'active' : ''}`}>
+                  <Link className="nav-link" href={routes.alternatif}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.alternatif/>
                     </span>
                     <span className="nav-link-title">Data Alternatif</span>
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className={`nav-item ${pathname === routes.penilaian ? 'active' : ''}`}>
                   <a className="nav-link" href="#">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.penilaian/>
@@ -262,15 +275,15 @@ export default function NavBar() {
                     <span className="nav-link-title">Data Penilaian</span>
                   </a>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" href="/admin/perhitungan">
+                <li className={`nav-item ${pathname === routes.perhitungan ? 'active' : ''}`}>
+                  <Link className="nav-link" href={routes.perhitungan}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.perhitungan/>
                     </span>
                     <span className="nav-link-title">Data Perhitungan</span>
                   </Link>
                 </li>
-                <li className="nav-item">
+                <li className={`nav-item ${pathname === routes.hasil ? 'active' : ''}`}>
                   <a className="nav-link" href="#">
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.hasil/>

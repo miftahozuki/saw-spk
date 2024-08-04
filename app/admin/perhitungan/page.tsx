@@ -5,7 +5,7 @@ import { MatriksNormalisasiTabel } from "@/components/matrik-normalisasi-table"
 import PerhitunganTabel from "@/components/perhitungan-table"
 import { getKriteria, getalternatifs } from "@/lib/data"
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 const PerhitunganPage = async() => {
   const alternatif = await getalternatifs()
