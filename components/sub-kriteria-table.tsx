@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icons } from "./Icon";
 import { AddButton, DeleteButton, EditButton } from "./button";
 import { getKriteria } from "@/lib/data";
+import { deleteSubKriteria } from "@/lib/action";
 
 const SubKriteriaTable = async() => {
     const kriteria = await getKriteria()
@@ -42,7 +43,9 @@ const SubKriteriaTable = async() => {
                 <td className="d-flex justify-content-center">
                   <div className="btn-list flex-nowrap">
                     <EditButton id={subkriteria.id} href="/admin/kriteria/subkriteria/edit" />
-                    <DeleteButton id={subkriteria.id} aksi="subkriteria" />
+                    <form action={deleteSubKriteria.bind(null, subkriteria.id)}>
+                      <DeleteButton/>
+                    </form>
                   </div>
                 </td>
               </tr>

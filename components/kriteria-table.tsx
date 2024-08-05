@@ -1,5 +1,6 @@
 import { getKriteria } from "@/lib/data";
 import { EditButton, DeleteButton } from "./button";
+import { deleteKriteria } from "@/lib/action";
 
 
 const KriteriaTable = async() => {
@@ -39,7 +40,9 @@ const KriteriaTable = async() => {
               <td className="d-flex justify-content-center">
                 <div className="btn-list flex-nowrap">
                   <EditButton id={kriteria.id} href="/admin/kriteria/edit"/>
-                  <DeleteButton id={kriteria.id} aksi="kriteria"/>
+                  <form action={deleteKriteria.bind(null, kriteria.id)}>
+                    <DeleteButton/>
+                  </form>
                 </div>
               </td>
             </tr>

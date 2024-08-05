@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Alternatif, Penilaian, Kriteria, subKriteria } from "@prisma/client";
+import { unstable_noStore as noStore } from "next/cache";
 
 type AlternatifPenilaian = Alternatif & {
     penilaian: Penilaian[]
@@ -10,6 +11,7 @@ type KriteriaSubKriteria = Kriteria & {
 };
 
 export const getalternatifs = async () => {
+    noStore()
     try {
         const alternatif = await prisma.alternatif.findMany({
             select: {
@@ -42,6 +44,7 @@ export const getAlternatifById = async (id: number) => {
 };
 
 export const getKriteria = async () => {
+    noStore()
     try {
         const kriteria = await prisma.kriteria.findMany({
             select: {

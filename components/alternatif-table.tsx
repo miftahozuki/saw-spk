@@ -1,4 +1,5 @@
 import { EditButton, DeleteButton } from "@/components/button";
+import { deleteAlternatif } from "@/lib/action";
 import { getalternatifs } from "@/lib/data";
 
 const AlternatifTable = async () => {
@@ -26,7 +27,9 @@ const AlternatifTable = async () => {
             <td>
               <div className="btn-list flex-nowrap">
                 <EditButton id={alternatif.id} href="/admin/alternatif/edit"/>
-                <DeleteButton id={alternatif.id} aksi="alternatif"/>
+                <form action={deleteAlternatif.bind(null, alternatif.id)}>
+                  <DeleteButton/>
+                </form>
               </div>
             </td>
           </tr>

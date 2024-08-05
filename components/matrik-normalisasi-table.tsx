@@ -23,7 +23,7 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
   useEffect(() => {
     const result = normalisasi(alternatif, kriteria);
     setR(result);
-  }, [alternatif]);
+  }, [alternatif, kriteria]);
 
   return (
     <>

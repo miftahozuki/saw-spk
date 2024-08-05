@@ -34,15 +34,7 @@ export const EditButton =  ({ id, href }: { id: number, href: string }) => {
   );
 };
 
-export const DeleteButton = ({id, aksi}:{id:number, aksi:string}) => {
-  let Delete
-  if (aksi === 'alternatif') {
-    Delete = deleteAlternatif.bind(null, id)
-  } else if(aksi === 'kriteria') {
-    Delete = deleteKriteria.bind(null, id)
-  } else if(aksi == 'subkriteria') {
-    Delete = deleteSubKriteria.bind(null, id)
-  }
+export const DeleteButton = () => {
 
   const {pending} = useFormStatus()  
   const classname = clsx("btn btn-outline-danger", {
@@ -50,12 +42,10 @@ export const DeleteButton = ({id, aksi}:{id:number, aksi:string}) => {
   })
 
   return (
-    <form action={Delete}>
-    <button
+    <button type="submit"
       className={classname}>
       Hapus
     </button>
-    </form>
   );
 };
 
