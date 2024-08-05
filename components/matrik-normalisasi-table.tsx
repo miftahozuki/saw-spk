@@ -31,11 +31,11 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
         <div className="card-header">
           <h3 className="card-title text-primary me-3">
             <Icons.tabel className="me-2" />
-            Matriks Ternormalisasi (R)
+            Matriks Ternormalisasi (𝑟)
           </h3>
         </div>
         <div className="table-responsive mx-4 mt-3">
-          <table className="table table-vcenter table-nowrap">
+          <table id="tabel" className="table table-vcenter table-nowrap">
             <thead>
               <tr>
                 <th scope="col" className="text-center">

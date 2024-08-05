@@ -7,7 +7,7 @@ const AlternatifTable = async () => {
 
   return (
     <div className="table-responsive mx-4 mt-3">
-      <table className="table table-vcenter table-nowrap">
+      <table id="tabel" className="table table-vcenter table-nowrap">
         <thead>
           <tr>
             <th scope="col">No.</th>

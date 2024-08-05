@@ -1,4 +1,4 @@
-import {IconUserCircle, IconHome, IconPackages, IconUsers, IconAffiliate, IconPencilStar, IconMathFunction, IconChartBar, IconTable, IconPlus, IconEdit, IconAlignBoxLeftBottom, IconArrowBadgeLeft,IconDeviceFloppy } from '@tabler/icons-react';
+import {IconUserCircle, IconHome, IconPackages, IconUsers, IconAffiliate, IconPencilStar, IconMathFunction, IconChartBar, IconTable, IconPlus, IconEdit, IconAlignBoxLeftBottom, IconArrowBadgeLeft,IconDeviceFloppy, IconPrinter } from '@tabler/icons-react';
 
 export const Icons = {
     avatar: IconUserCircle,
@@ -14,5 +14,6 @@ export const Icons = {
     edit: IconEdit,
     nama: IconAlignBoxLeftBottom,
     kembali: IconArrowBadgeLeft,
-    simpan: IconDeviceFloppy
+    simpan: IconDeviceFloppy,
+    cetak: IconPrinter
 }

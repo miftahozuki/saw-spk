@@ -15,11 +15,11 @@ export const BobotTable = async({kriteria}:{kriteria:KriteriaSubKriteria[]}) => 
             <div className="card-header">
               <h3 className="card-title text-primary me-3">
                 <Icons.tabel className="me-2" />
-                Bobot Preferensi (W)
+                Bobot Preferensi (𝑤)
               </h3>
             </div>
             <div className="table-responsive mx-4 mt-3">
-              <table className="table table-vcenter table-nowrap">
+              <table id="tabel" className="table table-vcenter table-nowrap">
                 <thead>
                   <tr>
                     {kriteria.map((kriteria) => (

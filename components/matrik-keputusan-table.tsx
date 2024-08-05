@@ -22,12 +22,13 @@ export const MatriksKeputusanTable = ({
         <div className="card-header">
           <h3 className="card-title text-primary me-3">
             <Icons.tabel className="me-2" />
-            Matriks Keputusan (X)
+            Matriks Keputusan (𝑥)
           </h3>
         </div>
         <div className="table-responsive mx-4 mt-3">
-          <table className="table table-vcenter table-nowrap">
+          <table id="tabel" className="table table-vcenter table-nowrap">
             <thead>
+              <tr>
                 <th scope="col" className="text-center">
                   NO
                 </th>
@@ -35,8 +36,9 @@ export const MatriksKeputusanTable = ({
                   Nama Alternatif
                 </th>
                 {kriteria.map((kriteria) => (
-                  <th key={kriteria.id}>{kriteria.nama}</th>
+                  <th key={kriteria.id}>{kriteria.kode}</th>
                 ))}
+              </tr>
             </thead>
             <tbody>
               {alternatif.map((alternatif, idx) => (

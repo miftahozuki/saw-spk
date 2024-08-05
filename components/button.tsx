@@ -77,3 +77,12 @@ export const UpdateButton = () => {
   );
 };
 
+export const PrintButton = () => {
+  return (
+    <button className="btn btn-primary">
+      <Icons.cetak className="me-2"/>
+      Cetak
+    </button>
+  )
+}
+

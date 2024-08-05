@@ -17,7 +17,7 @@ export default function NavBar(href: any) {
     alternatif: '/admin/alternatif',
     penilaian: '/admin/penilaian',
     perhitungan: '/admin/perhitungan',
-    hasil: 'admin/hasil'
+    hasil: '/admin/hasil'
   }
 
   return (
@@ -284,12 +284,12 @@ export default function NavBar(href: any) {
                   </Link>
                 </li>
                 <li className={`nav-item ${pathname === routes.hasil ? 'active' : ''}`}>
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" href={routes.hasil}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.hasil/>
                     </span>
                     <span className="nav-link-title">Data Hasil Akhir</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
               {/* <!-- end nav --> */}
