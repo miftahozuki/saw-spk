@@ -1,12 +1,12 @@
 import { Icons } from "@/components/Icon"
-import AlternatifTable from "@/components/alternatif-table"
 import { PrintButton } from "@/components/button"
-import { PerankinganTable } from "@/components/perankingan-table"
+// import { PerankinganTable } from "@/components/perankingan-table"
 import { SkeletonTablePerankingan } from "@/components/skeleton"
 import { getalternatifs, getKriteria, normalisasi, getPreferensi } from "@/lib/data"
 import { Penilaian } from "@prisma/client"
-import { Suspense } from "react"
+import { Suspense, lazy } from "react"
 
+const PerankinganTable = lazy(() => import('@/components/perankingan-table'))
 
 const HasilPage = async() => {
   const alternatifs = await getalternatifs();

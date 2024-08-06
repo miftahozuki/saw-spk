@@ -5,7 +5,7 @@ interface alternatifs  {
     score: string | number
 }
 
-export const PerankinganTable =  ({alternatifs}: {alternatifs: alternatifs[]}) => {
+const PerankinganTable =  ({alternatifs}: {alternatifs: alternatifs[]}) => {
 
 
     return (
@@ -37,3 +37,5 @@ export const PerankinganTable =  ({alternatifs}: {alternatifs: alternatifs[]}) =
         </div>
     );
 };
+
+export default PerankinganTable
