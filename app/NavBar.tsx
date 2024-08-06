@@ -131,9 +131,10 @@ export default function NavBar(href: any) {
                 <div className="dropdown-menu dropdown-menu-arrow dropdown-menu-end dropdown-menu-card">
                   <div className="card">
                     <div className="card-header">
-                      <h3 className="card-title">Notifikasi</h3>
+                      <h3 className="card-title"> Notifikasi
+                        <span className="spinner-grow text-red ms-4" role="status"></span></h3>
                     </div>
-                    <div className="list-group list-group-flush list-group-hoverable">
+                    {/* <div className="list-group list-group-flush list-group-hoverable">
                       <div className="list-group-item">
                         <div className="row align-items-center">
                           <div className="col-auto">
@@ -143,9 +144,9 @@ export default function NavBar(href: any) {
                             <a href="#" className="text-body d-block">
                             
                             </a>
-                            {/* <div className="d-block text-muted text-truncate mt-n1">
+                            <div className="d-block text-muted text-truncate mt-n1">
                               Nothing to see Lorem ipsum dolor sit amet.
-                            </div> */}
+                            </div>
                           </div>
                           <div className="col-auto">
                             <a href="#" className="list-group-item-actions">
@@ -172,7 +173,7 @@ export default function NavBar(href: any) {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

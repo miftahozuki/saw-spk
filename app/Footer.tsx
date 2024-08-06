@@ -16,7 +16,7 @@ export default function Footer() {
                     className="link-secondary"
                     rel="noopener"
                   >
-                    Develop by me
+                    Develop by Miftahus
                     {/* <!-- Download SVG icon from http://tabler-icons.io/i/heart --> */}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
