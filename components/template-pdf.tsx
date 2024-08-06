@@ -41,4 +41,6 @@ const PdfTemplate = forwardRef<HTMLDivElement, Props>(({ data }, ref) => {
   );
 });
 
+PdfTemplate.displayName = 'pdfTemplate'
+
 export default PdfTemplate;
