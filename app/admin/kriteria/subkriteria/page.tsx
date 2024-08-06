@@ -1,7 +1,9 @@
 import { Icons } from "@/components/Icon";
 import { AddButton } from "@/components/button";
 import KriteriaTable from "@/components/kriteria-table";
+import { SkeletonTableSubKriteria } from "@/components/skeleton";
 import SubKriteriaTable from "@/components/sub-kriteria-table";
+import { Suspense } from "react";
 
 export default function SubKriteriaPage() {
     return (
@@ -31,7 +33,9 @@ export default function SubKriteriaPage() {
           <div className="container-xl">
           <div className="row row-cards">
             <div className="col-12">
+              <Suspense fallback={<SkeletonTableSubKriteria/>}>
                 <SubKriteriaTable/>
+              </Suspense>
             </div>
           </div>
           </div>

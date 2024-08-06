@@ -2,6 +2,8 @@ import { Icons } from "@/components/Icon";
 import AlternatifTable from "@/components/alternatif-table";
 import { AddButton } from "@/components/button";
 import KriteriaTable from "@/components/kriteria-table";
+import { SkeletonTableKriteria } from "@/components/skeleton";
+import { Suspense } from "react";
 
 export default function KriteriaPage() {
     return(
@@ -32,7 +34,9 @@ export default function KriteriaPage() {
             <div className="row row-cards">
               <div className="col-12">
                 <div className="card">
+                  <Suspense fallback={<SkeletonTableKriteria/>}>
                   <KriteriaTable/>
+                  </Suspense>
                 </div>
               </div>
             </div>

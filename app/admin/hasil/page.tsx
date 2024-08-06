@@ -1,9 +1,11 @@
 import { Icons } from "@/components/Icon"
 import AlternatifTable from "@/components/alternatif-table"
-import { AddButton, PrintButton } from "@/components/button"
+import { PrintButton } from "@/components/button"
 import { PerankinganTable } from "@/components/perankingan-table"
+import { SkeletonTablePerankingan } from "@/components/skeleton"
 import { getalternatifs, getKriteria, normalisasi, getPreferensi } from "@/lib/data"
 import { Penilaian } from "@prisma/client"
+import { Suspense } from "react"
 
 
 const HasilPage = async() => {
@@ -12,6 +14,7 @@ const HasilPage = async() => {
   const r = normalisasi(alternatifs, kriteria);
 
   const nilai = (nilai: Penilaian[]) => {
+    
       const result = getPreferensi(nilai, kriteria);
       return result;
   };
@@ -62,7 +65,9 @@ const HasilPage = async() => {
                   Hasil Perankingan
                 </h3>
               </div>
+              <Suspense fallback={<SkeletonTablePerankingan/>}>
                 <PerankinganTable alternatifs={rankedAlternatifs}/>
+              </Suspense>
             </div>
           </div>
         </div>
