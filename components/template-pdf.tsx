@@ -24,7 +24,7 @@ const PdfTemplate = forwardRef<HTMLDivElement, Props>(({ data }, ref) => {
           </thead>
           <tbody>
             {data.map((alternatif, idx) => (
-              <tr className={idx % 2 === 1 ? "bg-indigo-lt" : ""}>
+              <tr key={alternatif.score} className={idx % 2 === 1 ? "bg-indigo-lt" : ""}>
                 <td className="text-primary fw-bold">{alternatif.nama}</td>
                 <td className="text-primary fw-bold text-center">
                   {alternatif.score}
