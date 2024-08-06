@@ -2,3 +2,19 @@
   background-color: #206bc4;
   color: white;
 }
+
+@media screen {
+  #print-content {
+    display: none;
+  }
+}
+
+@media print {
+  #print-content {
+    display: block;
+  }
+
+  @page {
+    margin: 10mm; /* Adjust margin to fit more content */
+  }
+}
