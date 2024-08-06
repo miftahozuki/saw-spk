@@ -1,6 +1,8 @@
 import {Icons} from '@/components/Icon';
 import { AddButton } from '@/components/button';
 import AlternatifTable from '@/components/alternatif-table';
+import { SkeletonTable } from '@/components/skeleton';
+import { Suspense } from 'react';
 
 export default function AlternatifPage() {
   return (
@@ -37,7 +39,9 @@ export default function AlternatifPage() {
                     Daftar Data Alternatif
                   </h3>
                 </div>
+                <Suspense fallback={<SkeletonTable/>}>
                   <AlternatifTable/>
+                </Suspense>
               </div>
             </div>
           </div>

@@ -86,8 +86,6 @@ export const PrintButton = ({data}: {data: dataPrint[]}) => {
     onBeforePrint: () => setIsPrinting(true),
     onAfterPrint: () => setIsPrinting(false)
   })
-
-  console.log(handlePrint);
   
   return (
     <>
