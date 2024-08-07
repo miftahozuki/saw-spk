@@ -35,7 +35,14 @@ export const getalternatifs = async () => {
 export const getAlternatifById = async (id: number) => {
     try {
         const alternatif = await prisma.alternatif.findUnique({
-            where: { id }
+            where: { id },
+            select: {
+                id: true,
+                nama: true,
+                penilaian: true,
+                createdAt: true,
+                updatedAt: true
+            }
         });
         return alternatif;
     } catch (error) {
@@ -90,14 +97,22 @@ export const getSubKriteriaByID = async (id: number) => {
     }
 }
 
-export const getPenilaian = async () => {
-    try {
-        const nilai = await prisma.penilaian.findMany()
-        return nilai
-    } catch (error) {
-        throw new Error("Failed to fetch nilai data.")
-    }
-}
+// export const getPenilaianById = async(id: number) => {
+//     try {
+//         const 
+//     } catch (error) {
+        
+//     }
+// }
+
+// export const getPenilaian = async () => {
+//     try {
+//         const nilai = await prisma.penilaian.findMany()
+//         return nilai
+//     } catch (error) {
+//         throw new Error("Failed to fetch nilai data.")
+//     }
+// }
 
 
 

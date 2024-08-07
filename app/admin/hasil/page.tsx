@@ -4,7 +4,7 @@ import { PerankinganTable } from "@/components/perankingan-table"
 import { SkeletonTablePerankingan } from "@/components/skeleton"
 import { getalternatifs, getKriteria, normalisasi, getPreferensi } from "@/lib/data"
 import { Penilaian } from "@prisma/client"
-import { Suspense, lazy } from "react"
+import { Suspense } from "react"
 
 const HasilPage = async() => {
   const alternatifs = await getalternatifs();

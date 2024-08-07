@@ -269,12 +269,12 @@ export default function NavBar(href: any) {
                   </Link>
                 </li>
                 <li className={`nav-item ${pathname === routes.penilaian ? 'active' : ''}`}>
-                  <a className="nav-link" href="#">
+                  <Link className="nav-link" href={routes.penilaian}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <Icons.penilaian/>
                     </span>
                     <span className="nav-link-title">Data Penilaian</span>
-                  </a>
+                  </Link>
                 </li>
                 <li className={`nav-item ${pathname === routes.perhitungan ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.perhitungan}>

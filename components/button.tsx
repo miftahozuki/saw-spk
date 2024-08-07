@@ -97,3 +97,23 @@ export const PrintButton = ({data}: {data: dataPrint[]}) => {
     </>
   );
 };
+
+export const InputNilaiButton = ({hidden}:{hidden:boolean}) => {
+  const display = hidden ? 'd-none' : ''
+
+  return (
+  <button className={`btn btn-outline-primary ${display}`}>
+    <Icons.add className="me-2"/> Input
+  </button>
+  )
+}
+
+export const EditNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
+  const display = hidden ? 'd-none' : ''
+
+  return (
+  <Link href={`/admin/penilaian/edit/${id}`} className={`btn btn-outline-success ${display}`}>
+    <Icons.edit className="me-2"/> Edit
+  </Link>
+  )
+}
