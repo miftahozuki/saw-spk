@@ -22,7 +22,7 @@ const SubKriteriaTable = async() => {
           <table id="tabel" className="table table-vcenter table-nowrap">
             <thead>
               <tr>
-                <th scope="col">No.</th>
+                {/* <th scope="col">No.</th> */}
                 <th scope="col" className="w-50 text-center">
                   Nama Sub Kriteria
                 </th>
@@ -37,7 +37,7 @@ const SubKriteriaTable = async() => {
             <tbody>
               {kriteria.subkriteria.map((subkriteria, idx) => (
               <tr key={subkriteria.id}>
-                <td className="text-center">{idx +1}</td>
+                {/* <td className="text-center">{idx +1}</td> */}
                 <td>{subkriteria.nama}</td>
                 <td className="text-center">{subkriteria.nilai}</td>
                 <td className="d-flex justify-content-center">

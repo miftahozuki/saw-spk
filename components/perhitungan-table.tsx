@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icons } from './Icon'
 import { Alternatif, Kriteria, Penilaian, subKriteria } from '@prisma/client'
-import { getPreferensi } from '@/lib/data'
+// import { getPreferensi } from '@/lib/data'
 
 type AlternatifPenilaian = Alternatif & {
     penilaian: Penilaian[]
@@ -13,10 +13,10 @@ type KriteriaSubKriteria = Kriteria & {
 
 const PerhitunganTabel = ({ alternatif, kriteria }: { alternatif: AlternatifPenilaian[], kriteria: KriteriaSubKriteria[] }) => {
 
-    const nilaiPreferensi = (penilaian : Penilaian[]) => {
-        const nilai = getPreferensi(penilaian, kriteria)
-        return nilai
-    }
+    // const nilaiPreferensi = (penilaian : Penilaian[]) => {
+    //     const nilai = getPreferensi(penilaian, kriteria)
+    //     return nilai
+    // }
     
     return (
         <>
@@ -53,7 +53,8 @@ const PerhitunganTabel = ({ alternatif, kriteria }: { alternatif: AlternatifPeni
                                     <td>SUM {alternatif.penilaian.map((alternatif) => (
                                         <span key={alternatif.id}>({alternatif.nilai} x {kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot} ) </span>
                                     ))}</td>
-                                    <td>{nilaiPreferensi(alternatif.penilaian)}</td>
+                                    <td></td>
+                                    {/* <td>{nilaiPreferensi(alternatif.penilaian)}</td> */}
                                 </tr>
                             ))}
                         </tbody>

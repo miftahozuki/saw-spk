@@ -233,7 +233,7 @@ export const EditPenilaian = ({
         <div className=" bg-transparent mt-4">
           <div className="btn-list justify-content-between">
             <BackButton />
-            <SubmitButton />
+            <UpdateButton />
           </div>
         </div>
       </form>

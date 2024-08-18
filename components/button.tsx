@@ -98,13 +98,13 @@ export const PrintButton = ({data}: {data: dataPrint[]}) => {
   );
 };
 
-export const InputNilaiButton = ({hidden}:{hidden:boolean}) => {
+export const InputNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
   const display = hidden ? 'd-none' : ''
 
   return (
-  <button className={`btn btn-outline-primary ${display}`}>
+  <Link href={`/admin/penilaian/add/${id}`} className={`btn btn-outline-primary ${display}`}>
     <Icons.add className="me-2"/> Input
-  </button>
+  </Link>
   )
 }
 

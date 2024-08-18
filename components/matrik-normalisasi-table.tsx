@@ -2,7 +2,7 @@
 
 import { Alternatif, Kriteria, Penilaian, subKriteria } from "@prisma/client";
 import { Icons } from "./Icon";
-import { normalisasi } from "@/lib/data";
+// import { normalisasi } from "@/lib/data";
 import { useEffect, useState } from "react";
 import PerhitunganTabel from "./perhitungan-table";
 
@@ -20,10 +20,10 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
 }) => {
   const [r, setR] = useState(alternatif);
 
-  useEffect(() => {
-    const result = normalisasi(alternatif, kriteria);
-    setR(result);
-  }, [alternatif, kriteria]);
+  // useEffect(() => {
+  //   const result = normalisasi(alternatif, kriteria);
+  //   setR(result);
+  // }, [alternatif, kriteria]);
 
   return (
     <>

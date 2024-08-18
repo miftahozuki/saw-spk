@@ -3,7 +3,7 @@ import { EditNilaiButton, InputNilaiButton } from "./button"
 
 export const PenilaianTable = async() => {
     const alternatifs = await getalternatifs()
-    console.log(alternatifs);
+    
     
     return (
         <div className="table-responsive mx-4 mt-4">
@@ -25,8 +25,8 @@ export const PenilaianTable = async() => {
               <td className="text-start">{idx +1}</td>
               <td>{alternatif.nama}</td>
               <td className="d-flex justify-content-center">
-                <InputNilaiButton hidden={true}/>
-                <EditNilaiButton id={alternatif.id} hidden={false}/>
+                <InputNilaiButton id={alternatif.id} hidden={!!alternatif.penilaian.find((alternatif) => alternatif.id)}/>
+                <EditNilaiButton id={alternatif.id} hidden={!alternatif.penilaian.find((alternatif) => alternatif.id)}/>
                 </td>
             </tr>
             ))}

@@ -1,7 +1,12 @@
 import { SubmitButton } from "@/components/button";
 import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
-import { saveAlternatif, saveKriteria, saveSubKriteria } from "@/lib/action";
+import { inputPenilaian, saveAlternatif, saveKriteria, saveSubKriteria } from "@/lib/action";
+import { Kriteria, subKriteria } from "@prisma/client";
+
+type KriteriaSubKriteria = Kriteria &{
+  subkriteria: subKriteria[]
+}
 
 export const CreateAlternatif = async () => {
   return (
@@ -138,3 +143,38 @@ export const CreateSubKriteria = async ({id}: {id:number}) => {
     </>
   );
 };
+
+export const CreatePenilaian = ({kriteria, id}:{kriteria: KriteriaSubKriteria[], id: number}) => {
+  const inputNilai = inputPenilaian.bind(null, id)
+
+  return (
+    <>
+    <form action={inputNilai}>
+      {kriteria.map((kriteria) => (
+        <div key={kriteria.id} className="col-md mb-3">
+          <div className="form-label">
+            <i className="bi bi-envelope-at-fill me-2" />
+            {kriteria.nama}
+          </div>
+          <select
+            className="form-select"
+            name={`${kriteria.id}`}
+          >
+            {kriteria.subkriteria.map((subkriteria) => (
+              <option key={subkriteria.id} value={subkriteria.id}>
+                {subkriteria.nama}
+              </option>
+            ))}
+          </select>
+        </div>
+      ))}
+      <div className=" bg-transparent mt-4">
+        <div className="btn-list justify-content-between">
+          <BackButton />
+          <SubmitButton />
+        </div>
+      </div>
+    </form>
+  </>
+  )
+}

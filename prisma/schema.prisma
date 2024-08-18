@@ -54,9 +54,9 @@ model Penilaian {
   id Int @id @default(autoincrement())
   kriteria Kriteria @relation(fields: [kriteriaId], references: [id])
   kriteriaId Int
-  subkriteria subKriteria @relation(fields: [subkriteriaId], references: [id])
-  subkriteriaId Int
+  subkriteria subKriteria? @relation(fields: [subkriteriaId], references: [id])
+  subkriteriaId Int?
   alternatif Alternatif @relation(fields: [alternatifId], references: [id])
   alternatifId Int
-  nilai Float
+  nilai Float?
 }

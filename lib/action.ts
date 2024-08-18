@@ -158,3 +158,23 @@ export const updateSubKriteria = async(id: number, formData: FormData) => {
     revalidatePath("/admin/kriteria/subkriteria")
     redirect("/admin/kriteria/subkriteria")
 }
+
+export const inputPenilaian = async(id: number, formData: FormData) => {
+    const data = Object.fromEntries(formData.entries())
+  
+    try {
+        const penilaian =  Object.keys(data).map((key) => ({
+                kriteriaId: Number(key),
+                subkriteriaId: Number(data[key]),
+                alternatifId: id,
+            }))
+        
+        await prisma.penilaian.createMany({data: penilaian})
+        
+    } catch (error) {
+        return {message: "Failed to input nilai alternatif."}
+    }
+
+    revalidatePath("/admin/penilaian")
+    redirect("/admin/penilaian")
+}
