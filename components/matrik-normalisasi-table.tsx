@@ -1,33 +1,27 @@
 "use client";
 
-import { Alternatif, Kriteria, Penilaian, subKriteria } from "@prisma/client";
+import { AlternatifPenilaian, KriteriaSubKriteria } from "@/utils/type";
 import { Icons } from "./Icon";
-// import { normalisasi } from "@/lib/data";
+import { normalisasi } from "@/lib/data";
 import { useEffect, useState } from "react";
 import PerhitunganTabel from "./perhitungan-table";
-
-type AlternatifPenilaian = Alternatif & {
-  penilaian: Penilaian[];
-};
-
-type KriteriaSubKriteria = Kriteria & {
-  subkriteria: subKriteria[];
-};
 
 export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
   alternatif: AlternatifPenilaian[];
   kriteria: KriteriaSubKriteria[];
 }) => {
   const [r, setR] = useState(alternatif);
+  
 
-  // useEffect(() => {
-  //   const result = normalisasi(alternatif, kriteria);
-  //   setR(result);
-  // }, [alternatif, kriteria]);
+  useEffect(() => {
+    const result = normalisasi(alternatif, kriteria);
+    setR(result);
+    
+  },[alternatif, kriteria]);
 
   return (
     <>
-      <div key={1} className="card mb-5">
+      <div className="card mb-5">
         <div className="card-header">
           <h3 className="card-title text-primary me-3">
             <Icons.tabel className="me-2" />
@@ -39,7 +33,7 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
             <thead>
               <tr>
                 <th scope="col" className="text-center">
-                  NO
+                  No
                 </th>
                 <th scope="col" className="text-center">
                   Nama Alternatif
@@ -55,13 +49,7 @@ export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
                   <td className="text-center">{idx + 1}</td>
                   <td>{alternatif.nama}</td>
                   {kriteria.map((kriteria) => (
-                    <td key={kriteria.id}>
-                      {
-                        alternatif.penilaian.find(
-                          (penilaian) => penilaian.kriteriaId === kriteria.id
-                        )?.nilai
-                      }
-                    </td>
+                    <td key={kriteria.id}>{alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.nilai}</td>
                   ))}
                 </tr>
               ))}

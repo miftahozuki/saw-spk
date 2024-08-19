@@ -1,14 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { Alternatif, Penilaian, Kriteria, subKriteria } from "@prisma/client";
+import { Penilaian, subKriteria } from "@prisma/client";
+import { AlternatifPenilaian, KriteriaSubKriteria } from "@/utils/type";
 import { unstable_noStore as noStore } from "next/cache";
 
-type AlternatifPenilaian = Alternatif & {
-    penilaian: Penilaian[]
-}
-
-type KriteriaSubKriteria = Kriteria & {
-    subkriteria: subKriteria[];
-};
 
 export const getalternatifs = async () => {
     noStore()
@@ -97,98 +91,97 @@ export const getSubKriteriaByID = async (id: number) => {
     }
 }
 
-// export const getPenilaianById = async(id: number) => {
-//     try {
-//         const 
-//     } catch (error) {
-        
-//     }
-// }
-
-// export const getPenilaian = async () => {
-//     try {
-//         const nilai = await prisma.penilaian.findMany()
-//         return nilai
-//     } catch (error) {
-//         throw new Error("Failed to fetch nilai data.")
-//     }
-// }
-
-
-
 // Perhitungan Metode SAW
 
-// const getMax = (alternatif: AlternatifPenilaian[]) => {
-//     const maxValue: { [kriteriaId: number]: number } = {}
-//     alternatif.forEach(alternatif => {
-//         alternatif.penilaian.forEach(penilaian => {
-//             const { kriteriaId, nilai } = penilaian;
-//             if (!maxValue[kriteriaId] || nilai > maxValue[kriteriaId]) {
-//                 maxValue[kriteriaId] = nilai
-//             }
-//         })
-//     })
-
-//     return maxValue
-// }
-
-// const getMin = (alternatif: AlternatifPenilaian[]) => {
-//     const minValue: { [kriteriaId: number]: number } = {}
-
-//     alternatif.forEach(alternatif => {
-//         alternatif.penilaian.forEach(penilaian => {
-//             const { kriteriaId, nilai } = penilaian;
-//             if (!minValue[kriteriaId] || nilai < minValue[kriteriaId]) {
-//                 minValue[kriteriaId] = nilai
-//             }
-//         })
-//     })
-
-//     return minValue
-// }
-
-// export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: KriteriaSubKriteria[]) => {
-//     const maxValue = getMax(alternatif)
-//     const minValue = getMin(alternatif)
-
-//     const ternormalisasi = alternatif.map(alternatif => ({
-//         ...alternatif,
-//         penilaian: alternatif.penilaian.map(penilaian => {
-//             const criteria = kriteria.find(k => k.id === penilaian.kriteriaId)
-//             if (!criteria) {
-//                 throw new Error('Something went wrong')
-//             }
-
-//             let normalisasi: number
+const getMax = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[]) => {
+    
+    const maxValue: { [kriteriaId: number]: number } = {}
+    alternatif.forEach(alternatif => {
+        alternatif.penilaian.forEach(penilaian => {
+            const { kriteriaId, subkriteriaId } = penilaian;
+            const nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
             
-//             switch (criteria.jenis) {
-//                 case "Benefit":
-//                     normalisasi = penilaian.nilai / maxValue[penilaian.kriteriaId];
-//                     break;
-//                 case "Cost":
-//                     normalisasi = minValue[penilaian.kriteriaId] / penilaian.nilai
-//                     break;
-//                 default:
-//                     normalisasi = penilaian.nilai
-//                     break;
-//             }
+            if (!maxValue[kriteriaId] || nilai > maxValue[kriteriaId]) {
+                maxValue[kriteriaId] = nilai
+            }
+        })
+    })
 
-//             return {
-//                 ...penilaian,
-//                 nilai: Number.isInteger(normalisasi) ? normalisasi : parseFloat(normalisasi.toFixed(2))
-//             }
-//         })
-//     }))
+    return maxValue
+}
 
-//     return ternormalisasi
-// }
 
-// export const getPreferensi = (penilaian : Penilaian[], kriteria: KriteriaSubKriteria[]) => {
-//     const nilai = penilaian.reduce((acc, alternatif) => {
-//         const bobot = kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot
+const getMin = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[]) => {
+    const minValue: { [kriteriaId: number]: number } = {}
 
-//         return acc + (bobot? alternatif.nilai * bobot : 0)
-//     }, 0)
+    alternatif.forEach(alternatif => {
+        alternatif.penilaian.forEach(penilaian => {
+            const { kriteriaId, subkriteriaId } = penilaian;
+            const nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
 
-//     return Number.isInteger(nilai) ? nilai: nilai.toFixed(2)
-// }
+            if (!minValue[kriteriaId] || nilai < minValue[kriteriaId]) {
+                minValue[kriteriaId] = nilai
+            }
+        })
+    })
+
+    return minValue
+}
+
+const getNilai = (subId: number, subkriteria: subKriteria[]) => {
+    return subkriteria.find(sub => sub.id === subId)?.nilai ?? 0
+}
+
+export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: KriteriaSubKriteria[]) => {
+
+    const subkriteria = kriteria.flatMap(k => {
+       return k.subkriteria
+    })
+
+    const maxValue = getMax(alternatif, subkriteria)
+    const minValue = getMin(alternatif, subkriteria)
+    
+    const ternormalisasi = alternatif.map(alternatif => ({
+        ...alternatif,
+        penilaian: alternatif.penilaian.map(penilaian => {
+            const criteria = kriteria.find(k => k.id === penilaian.kriteriaId)
+            if (!criteria) {
+                throw new Error('Something went wrong')
+            }
+
+            let normalisasi: number
+            const nilai = getNilai(penilaian.subkriteriaId ?? 0, subkriteria)
+
+            switch (criteria.jenis) {
+                case "Benefit":
+                    normalisasi = nilai / maxValue[penilaian.kriteriaId];
+                    break;
+                case "Cost":
+                    normalisasi = minValue[penilaian.kriteriaId] / nilai
+                    break;
+                default:
+                    normalisasi = 0
+                    break;
+            }
+
+            return {
+                ...penilaian,
+                nilai: Number.isInteger(normalisasi) ? normalisasi : parseFloat(normalisasi.toFixed(2))
+            }
+        })
+    }))
+
+    return ternormalisasi
+}
+
+export const getPreferensi = (penilaian : Penilaian[], kriteria: KriteriaSubKriteria[]) => {
+
+    const nilai = penilaian.reduce((acc, alternatif) => {
+        const bobot = kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot
+        const nilai = alternatif.nilai ?? 0
+
+        return acc + (bobot? nilai * bobot : 0)
+    }, 0)
+    
+    return Number.isInteger(nilai) ? nilai: nilai.toFixed(2)
+}

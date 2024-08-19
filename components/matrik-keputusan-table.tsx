@@ -1,13 +1,5 @@
-import { Alternatif, Kriteria, Penilaian, subKriteria } from "@prisma/client";
+import { AlternatifPenilaian, KriteriaSubKriteria } from "@/utils/type";
 import { Icons } from "./Icon";
-
-type AlternatifPenilaian = Alternatif & {
-  penilaian: Penilaian[];
-};
-
-type KriteriaSubKriteria = Kriteria & {
-  subkriteria: subKriteria[];
-};
 
 export const MatriksKeputusanTable = ({
   alternatif,
@@ -16,9 +8,16 @@ export const MatriksKeputusanTable = ({
   alternatif: AlternatifPenilaian[];
   kriteria: KriteriaSubKriteria[];
 }) => {
+
+  const getSubId = (alternatif: AlternatifPenilaian, kriteriaId: number) => {
+    const penilaian = alternatif.penilaian.find(p => p.kriteriaId === kriteriaId)
+    return penilaian?.subkriteriaId
+    
+  }
+
   return (
     <>
-      <div key={1} className="card mb-5">
+      <div className="card mb-5">
         <div className="card-header">
           <h3 className="card-title text-primary me-3">
             <Icons.tabel className="me-2" />
@@ -46,11 +45,10 @@ export const MatriksKeputusanTable = ({
                   <td className="text-center">{idx + 1}</td>
                   <td>{alternatif.nama}</td>
                   {kriteria.map((kriteria) => (
+                    
                     <td key={kriteria.id}>
                       {
-                        alternatif.penilaian.find(
-                          (penilaian) => penilaian.kriteriaId === kriteria.id
-                        )?.nilai
+                        kriteria.subkriteria.find(sub => sub.id === getSubId(alternatif, kriteria.id))?.nilai
                       }
                     </td>
                   ))}

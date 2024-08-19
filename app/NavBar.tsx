@@ -1,13 +1,29 @@
 "use client"
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from 'next/link';
-import {Icons} from "@/components/Icon";
+import { Icons } from "@/components/Icon";
 import Image from 'next/image';
-import Clock from "react-live-clock";
 import { usePathname } from "next/navigation";
 
-export default function NavBar(href: any) {
+export default function NavBar() {
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date())
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const Clock = (date: Date) => {
+    const jam = String(date.getHours()).padStart(2, '0')
+    const menit = String(date.getMinutes()).padStart(2, '0')
+    const detik = String(date.getSeconds()).padStart(2, '0')
+
+    return `${jam}:${menit}:${detik}`
+  }
+
   const pathname = usePathname()
 
   const routes = {
@@ -49,9 +65,9 @@ export default function NavBar(href: any) {
           <div className="navbar-nav flex-row order-md-last">
             <div className="nav-item d-none d-md-flex me-3">
               <div className="btn-list">
-              <div className="btn">
-                <Clock format={"HH:mm:ss"} ticking={true} />
-              </div>
+                <div className="btn">
+                  <span suppressHydrationWarning>{Clock(time)}</span>
+                </div>
               </div>
             </div>
             <div className="d-none d-md-flex">
@@ -187,7 +203,7 @@ export default function NavBar(href: any) {
               >
                 <div>
                   <span className="avatar avatar-sm me-2">
-                    <Icons.avatar/>
+                    <Icons.avatar />
                   </span>
                 </div>
                 <div className="d-none d-xl-block ps-2">
@@ -219,8 +235,8 @@ export default function NavBar(href: any) {
             <div className="container-xl">
               <ul className="navbar-nav">
                 <li className={`nav-item ${pathname === routes.dashboard ? 'active' : ''}`}>
-                <Link className="nav-link" href={routes.dashboard}>
-                  {/* <a className="nav-link" href="#"> */}
+                  <Link className="nav-link" href={routes.dashboard}>
+                    {/* <a className="nav-link" href="#"> */}
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -241,13 +257,13 @@ export default function NavBar(href: any) {
                       </svg>
                     </span>
                     <span className="nav-link-title">Beranda</span>
-                    </Link>
+                  </Link>
                   {/* </a> */}
                 </li>
                 <li className={`nav-item ${pathname === routes.kriteria ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.kriteria}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.kriteria/>
+                      <Icons.kriteria />
                     </span>
                     <span className="nav-link-title">Data Kriteria</span>
                   </Link>
@@ -255,7 +271,7 @@ export default function NavBar(href: any) {
                 <li className={`nav-item ${pathname === routes.subkriteria ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.subkriteria}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.subkriteria/>
+                      <Icons.subkriteria />
                     </span>
                     <span className="nav-link-title">Data Sub Kriteria</span>
                   </Link>
@@ -263,7 +279,7 @@ export default function NavBar(href: any) {
                 <li className={`nav-item ${pathname === routes.alternatif ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.alternatif}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.alternatif/>
+                      <Icons.alternatif />
                     </span>
                     <span className="nav-link-title">Data Alternatif</span>
                   </Link>
@@ -271,7 +287,7 @@ export default function NavBar(href: any) {
                 <li className={`nav-item ${pathname === routes.penilaian ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.penilaian}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.penilaian/>
+                      <Icons.penilaian />
                     </span>
                     <span className="nav-link-title">Data Penilaian</span>
                   </Link>
@@ -279,7 +295,7 @@ export default function NavBar(href: any) {
                 <li className={`nav-item ${pathname === routes.perhitungan ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.perhitungan}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.perhitungan/>
+                      <Icons.perhitungan />
                     </span>
                     <span className="nav-link-title">Data Perhitungan</span>
                   </Link>
@@ -287,7 +303,7 @@ export default function NavBar(href: any) {
                 <li className={`nav-item ${pathname === routes.hasil ? 'active' : ''}`}>
                   <Link className="nav-link" href={routes.hasil}>
                     <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      <Icons.hasil/>
+                      <Icons.hasil />
                     </span>
                     <span className="nav-link-title">Data Hasil Akhir</span>
                   </Link>
