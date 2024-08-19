@@ -166,7 +166,7 @@ export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: Kriteri
 
             return {
                 ...penilaian,
-                nilai: Number.isInteger(normalisasi) ? normalisasi : parseFloat(normalisasi.toFixed(2))
+                nilai: Number.isInteger(normalisasi) ? normalisasi : parseFloat(normalisasi.toFixed(3))
             }
         })
     }))
