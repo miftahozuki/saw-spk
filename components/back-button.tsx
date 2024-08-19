@@ -9,8 +9,8 @@ export const BackButton = () => {
   };
   return (
     <button type="button" className="btn btn-danger" onClick={goBack}>
-      <Icons.kembali className="me-2" />
-      Kembali
+      <Icons.kembali className="me-2" size={20}/>
+      <small>Kembali</small>
     </button>
   );
 };

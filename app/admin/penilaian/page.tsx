@@ -1,5 +1,7 @@
 import { Icons } from "@/components/Icon"
 import { PenilaianTable } from "@/components/penilaian-table"
+import { SkeletonTableAlternatif } from "@/components/skeleton"
+import { Suspense } from "react"
 
 const PenilaianPage = () => {
   return (
@@ -30,7 +32,9 @@ const PenilaianPage = () => {
                   Daftar Data Penilaian
                 </h3>
               </div>
+              <Suspense fallback={<SkeletonTableAlternatif/>}>
               <PenilaianTable/>
+              </Suspense>
             </div>
           </div>
         </div>

@@ -18,10 +18,10 @@ export const AddButton = ({ href }: { href: string }) => {
   return (
     <>
       <Link href={href} className="btn btn-primary d-none d-sm-inline-block">
-        <Icons.add stroke={1} /> Tambah
+      <Icons.add size={20}/> Tambah
       </Link>
       <Link href={href} className="btn btn-primary d-sm-none btn-icon">
-        <Icons.add stroke={1} />
+        <Icons.add size={20} />
       </Link>
     </>
   );
@@ -30,7 +30,7 @@ export const AddButton = ({ href }: { href: string }) => {
 export const EditButton = ({ id, href }: { id: number; href: string }) => {
   return (
     <Link href={`${href}/${id}`} className="btn btn-outline-success">
-      Edit
+      <small>Edit</small>
     </Link>
   );
 };
@@ -43,7 +43,7 @@ export const DeleteButton = () => {
 
   return (
     <button type="submit" className={classname}>
-      Hapus
+      <small>Hapus</small>
     </button>
   );
 };
@@ -56,8 +56,8 @@ export const SubmitButton = () => {
 
   return (
     <button type="submit" className={classname}>
-      <Icons.simpan className="me-2" />
-      Simpan
+      <Icons.simpan className="me-2" size={20}/>
+      <small>Simpan</small>
     </button>
   );
 };
@@ -70,8 +70,8 @@ export const UpdateButton = () => {
 
   return (
     <button type="submit" className={classname}>
-      <Icons.simpan className="me-2" />
-      Ubah
+      <Icons.simpan className="me-2" size={20}/>
+      <small>Ubah</small>
     </button>
   );
 };
@@ -90,7 +90,7 @@ export const PrintButton = ({data}: {data: dataPrint[]}) => {
   return (
     <>
       <button className="btn btn-primary" onClick={handlePrint} disabled={isPrinting}>
-        <Icons.cetak className="me-2" />
+        <Icons.cetak className="me-2" size={20} />
         {isPrinting ? <span className="animated-dots"></span> : 'Cetak'}
       </button>
       <PdfTemplate ref={ref} data={data}/>
@@ -103,7 +103,7 @@ export const InputNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
 
   return (
   <Link href={`/admin/penilaian/add/${id}`} className={`btn btn-outline-primary ${display}`}>
-    <Icons.add className="me-2"/> Input
+    <Icons.add className="me-1" size={20}/> <small>Input</small>
   </Link>
   )
 }
@@ -113,7 +113,8 @@ export const EditNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
 
   return (
   <Link href={`/admin/penilaian/edit/${id}`} className={`btn btn-outline-success ${display}`}>
-    <Icons.edit className="me-2"/> Edit
+    <Icons.edit className="me-2" size={20}/>
+    <small>Edit</small>
   </Link>
   )
 }
