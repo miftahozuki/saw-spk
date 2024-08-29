@@ -65,12 +65,7 @@ export default function DashboardPage() {
                           dengan persoalan yang bersifat semi terstruktur.{" "}
                         </p>
                         <p className="text-justify">
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Enim, illo iure optio fuga expedita accusantium
-                          possimus, accusamus saepe minima maxime deserunt,
-                          perferendis quia id delectus? Voluptatibus temporibus
-                          minus repudiandae tempora, eum sequi numquam veritatis
-                          consequatur modi aut, cumque harum! Alias accusantium
+                        Metode Simple Additive Weighting (SAW) adalah salah satu metode pengambilan keputusan multikriteria yang sering digunakan untuk menyelesaikan masalah keputusan berdasarkan sejumlah kriteria yang relevan. Metode ini dikenal juga sebagai metode penjumlahan terbobot. SAW bekerja dengan cara menjumlahkan bobot dari setiap alternatif pada setiap kriteria yang telah dinormalisasi, kemudian mencari alternatif dengan total nilai tertinggi.
                         </p>
                         <p>
                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt aliquid accusantium aspernatur, velit voluptates repellendus magnam distinctio amet optio enim? Quidem laborum consectetur saepe accusamus amet omnis ullam, itaque quia adipisci natus dignissimos sed officiis, distinctio voluptate.

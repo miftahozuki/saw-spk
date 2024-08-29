@@ -208,7 +208,7 @@ export default function NavBar() {
                 </div>
                 <div className="d-none d-xl-block ps-2">
                   <div>Miftahus</div>
-                  <div className="mt-1 small text-muted">miftahzk</div>
+                  <div className="mt-1 small text-muted">admin</div>
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
