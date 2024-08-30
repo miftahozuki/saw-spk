@@ -1,6 +1,9 @@
+import { auth } from "@/auth";
 import { Icons } from "@/components/Icon";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await auth()
+
   return (
     <>
       {/* Page header */}
@@ -16,7 +19,7 @@ export default function DashboardPage() {
             {/* Page title actions */}
             <div className="col-auto ms-auto d-print-none">
               <h2 className="page-title d-none d-sm-inline-block">
-                Selamat datang, Miftahus!
+                Selamat datang, {session?.user?.name}!
               </h2>
             </div>
           </div>

@@ -1,6 +1,8 @@
 "use server";
+import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { JenisKriteria } from "@prisma/client";
+import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -214,3 +216,53 @@ export const updatePenilaian = async (formData: FormData) => {
   revalidatePath("/admin/penilaian")
   redirect("/admin/penilaian")
 };
+
+export const getUserByUsername = async(username: string) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        username,
+      }
+    })
+    return user
+
+  } catch (error) {
+    console.error(error)
+    return null
+
+  }
+}
+
+export const login = async(formData: FormData) => {
+ const data = {
+  username: formData.get("username"),
+  password: formData.get("pw"),
+  role: 'Admin',
+  redirectTo: "/admin/dashboard"
+ }
+ 
+ try {
+  await signIn("credentials", data)
+  
+ } catch (error) {
+  if (error instanceof AuthError) {
+    switch (error.type) {
+      case "CredentialsSignin":
+        return { error: "Username atau Password salah!"};
+      default:
+        return {error: "something went wrong!"}
+    }
+  }
+  throw error
+ }
+ 
+revalidatePath("/login")
+}
+
+export const logout = async() => {
+  await signOut({
+    redirectTo: "/login"
+  })
+  revalidatePath("/login")
+
+}

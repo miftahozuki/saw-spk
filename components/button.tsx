@@ -7,6 +7,7 @@ import clsx from "clsx";
 import PdfTemplate from "./template-pdf";
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import {logout} from "@/lib/action"
 
 interface dataPrint {
   rank: number
@@ -116,5 +117,24 @@ export const EditNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
     <Icons.edit className="me-2" size={20}/>
     <small>Edit</small>
   </Link>
+  )
+}
+
+export const LoginButton = () => {
+  const {pending} = useFormStatus()
+
+  return (
+    <button disabled={pending} type="submit" className="btn btn-primary w-100">
+      {pending ? 'Go...' : 'Go'}
+    </button>
+  )
+}
+
+export const LogoutButton = () => {
+
+  return (
+    <button className="dropdown-item" onClick={() => logout()}>
+      Logout
+    </button>
   )
 }

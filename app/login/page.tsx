@@ -1,9 +1,12 @@
+import { LoginButton } from "@/components/button"
+import { login } from "@/lib/action"
+
 const LoginPage = () => {
     return (
         <div className="card card-md">
             <div className="card-body">
                 <h2 className="h2 text-center mb-4">Masuk</h2>
-                <form action="#" method="POST" autoComplete="off">
+                <form action={login} autoComplete="off">
                     <div className="mb-3">
                         <label className="form-label">Username</label>
                         <input
@@ -12,6 +15,7 @@ const LoginPage = () => {
                             className="form-control"
                             placeholder="admin"
                             autoComplete="off"
+                            required
                         />
 
                         {/* <div className="invalid-feedback">
@@ -22,11 +26,12 @@ const LoginPage = () => {
                         <label className="form-label">Kata Sandi</label>
                         <div className="input-group input-group-flat">
                             <input
-                                name="password"
+                                name="pw"
                                 type="password"
                                 className="form-control"
                                 placeholder="*****"
                                 autoComplete="off"
+                                required
                             />
                             <span className="input-group-text">
                                 <a
@@ -67,9 +72,7 @@ const LoginPage = () => {
                         </label>
                     </div>
                     <div className="form-footer">
-                        <button type="submit" className="btn btn-primary w-100">
-                            Go
-                        </button>
+                        <LoginButton/>
                     </div>
                 </form>
             </div>

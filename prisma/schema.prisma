@@ -39,6 +39,11 @@ enum JenisKriteria {
   Benefit
 }
 
+enum UserRole {
+  Admin
+  User
+}
+
 model subKriteria {
   id Int @id @default(autoincrement())
   nama String
@@ -59,4 +64,17 @@ model Penilaian {
   alternatif Alternatif @relation(fields: [alternatifId], references: [id])
   alternatifId Int
   nilai Float?
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  username      String    @unique
+  password      String?
+  email         String?   @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  role          UserRole? @default(Admin)
+ 
+  @@map("users")
 }

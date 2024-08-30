@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Icons } from "@/components/Icon";
 import Image from 'next/image';
 import { usePathname } from "next/navigation";
+import { LogoutButton } from "@/components/button";
 
 export default function NavBar() {
   const [time, setTime] = useState(new Date())
@@ -215,14 +216,7 @@ export default function NavBar() {
                 <a href="{{ url('admin/profile') }}" className="dropdown-item">
                   Settings
                 </a>
-                <a
-                  href=""
-                  className="dropdown-item"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exit"
-                >
-                  Logout
-                </a>
+                <LogoutButton/>
               </div>
             </div>
           </div>
