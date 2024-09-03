@@ -9,10 +9,10 @@ import type {
   subKriteria,
 } from "@prisma/client";
 import {
-  updatePenilaian,
   updateAlternatif,
   updateKriteria,
   updateSubKriteria,
+  updatePenilaian,
 } from "@/lib/action";
 
 export const EditAlternatif = async ({
@@ -175,17 +175,20 @@ export const EditSubKriteria = async ({
   );
 };
 
-export const EditPenilaian = ({
+export const EditPenilaian = ({id,
   alternatif,
   kriteria,
 }: {
+  id: number
   alternatif: AlternatifPenilaian;
   kriteria: KriteriaSubKriteria[];
 }) => {
 
+  const updateNilai = updatePenilaian.bind(null, id)
+
   return (
     <>
-      <form action={updatePenilaian}>
+      <form action={updateNilai}>
         {kriteria.map((kriteria) => (
           // <div className="row g-3 mt-2">
 
@@ -196,7 +199,8 @@ export const EditPenilaian = ({
             </div>
             <select
               className="form-select"
-              name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id}`}
+              // name={`${kriteria.id}`}
+              name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}` }
               defaultValue={
                 alternatif.penilaian.find(
                   (nilai) => nilai.kriteriaId === kriteria.id

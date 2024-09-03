@@ -48,7 +48,7 @@ model subKriteria {
   id Int @id @default(autoincrement())
   nama String
   nilai Int
-  kriteria Kriteria @relation(fields: [kriteriaId], references: [id])
+  kriteria Kriteria @relation(fields: [kriteriaId], references: [id], onDelete: Cascade)
   kriteriaId Int
   penilaian Penilaian[]
   createdAt DateTime @default(now())
@@ -56,12 +56,12 @@ model subKriteria {
 }
 
 model Penilaian {
-  id Int @id @default(autoincrement())
-  kriteria Kriteria @relation(fields: [kriteriaId], references: [id])
+  id String @id @default(cuid())
+  kriteria Kriteria @relation(fields: [kriteriaId], references: [id], onDelete: Cascade)
   kriteriaId Int
-  subkriteria subKriteria? @relation(fields: [subkriteriaId], references: [id])
+  subkriteria subKriteria? @relation(fields: [subkriteriaId], references: [id], onDelete: Cascade)
   subkriteriaId Int?
-  alternatif Alternatif @relation(fields: [alternatifId], references: [id])
+  alternatif Alternatif @relation(fields: [alternatifId], references: [id], onDelete: Cascade)
   alternatifId Int
   nilai Float?
 }

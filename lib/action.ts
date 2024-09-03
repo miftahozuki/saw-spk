@@ -190,21 +190,29 @@ export const inputPenilaian = async (id: number, formData: FormData) => {
   redirect("/admin/penilaian");
 };
 
-export const updatePenilaian = async (formData: FormData) => {
+export const updatePenilaian = async (id: number,formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
   const penilaian = Object.keys(data).map((key) => ({
-    id: Number(key),
+    id: key,
+    alternatif: id,
     subkriteriaId: Number(data[key])
   }))
 
   console.log(penilaian);
 
   try {
-    for (const p of penilaian) {
-        await prisma.penilaian.update({
-            where: {id: p.id},
-            data: {
-                subkriteriaId: p.subkriteriaId
+    for (const data of penilaian) {
+        await prisma.penilaian.upsert({
+            where: {
+              id: data.id,
+            },
+            create: {
+              kriteriaId: isNaN(Number(data.id)) ? 0 : Number(data.id),
+              alternatifId: data.alternatif,
+              subkriteriaId: data.subkriteriaId
+            },
+            update: {
+              subkriteriaId: data.subkriteriaId
             }
         })
     }

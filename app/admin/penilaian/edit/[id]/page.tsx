@@ -38,7 +38,7 @@ const UpdatePenilaianPage = async({params}:{params:{id: string}}) => {
                 <div className="justify-content-center row g-3 mb-2">
                   <div className="col d-flex flex-column">
                     <div className="card-body">
-                    <EditPenilaian alternatif={alternatif} kriteria={kriteria}/>
+                    <EditPenilaian id={id} alternatif={alternatif} kriteria={kriteria}/>
                     </div>
                   </div>
                 </div>

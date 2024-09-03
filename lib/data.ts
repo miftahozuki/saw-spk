@@ -22,6 +22,7 @@ export const getalternatifs = async () => {
         });
         return alternatif;
     } catch (error) {
+        console.error(error)
         throw new Error("Failed to fetch alternatif data ");
     }
 };
@@ -57,7 +58,7 @@ export const getKriteria = async () => {
                 createdAt: true,
                 updatedAt: true,
                 subkriteria: true
-            }, orderBy: { id: 'asc' }
+            }, orderBy: { kode: 'asc' }
         });
         return kriteria
 
