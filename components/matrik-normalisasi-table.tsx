@@ -3,21 +3,13 @@
 import { AlternatifPenilaian, KriteriaSubKriteria } from "@/utils/type";
 import { Icons } from "./Icon";
 import { normalisasi } from "@/lib/data";
-import { useEffect, useState } from "react";
 import PerhitunganTabel from "./perhitungan-table";
 
 export const MatriksNormalisasiTabel = ({alternatif,kriteria,}: {
   alternatif: AlternatifPenilaian[];
   kriteria: KriteriaSubKriteria[];
 }) => {
-  const [r, setR] = useState(alternatif);
-  
-
-  useEffect(() => {
-    const result = normalisasi(alternatif, kriteria);
-    setR(result);
-    
-  },[alternatif, kriteria]);
+  const r = normalisasi(alternatif, kriteria)
 
   return (
     <>

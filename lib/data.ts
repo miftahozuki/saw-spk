@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Penilaian, subKriteria } from "@prisma/client";
-import { AlternatifPenilaian, KriteriaSubKriteria } from "@/utils/type";
+import { AlternatifPenilaian, KriteriaSubKriteria, rPenilaian } from "@/utils/type";
 import { unstable_noStore as noStore } from "next/cache";
 
 
@@ -175,7 +175,7 @@ export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: Kriteri
     return ternormalisasi
 }
 
-export const getPreferensi = (penilaian : Penilaian[], kriteria: KriteriaSubKriteria[]) => {
+export const getPreferensi = (penilaian : rPenilaian[], kriteria: KriteriaSubKriteria[]) => {
 
     const nilai = penilaian.reduce((acc, alternatif) => {
         const bobot = kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot

@@ -1,11 +1,10 @@
 import { Icons } from './Icon'
 import { getPreferensi } from '@/lib/data'
-import { AlternatifPenilaian, KriteriaSubKriteria } from '@/utils/type'
-import { Penilaian } from '@prisma/client'
+import { KriteriaSubKriteria, rAlternatifPenilaian, rPenilaian } from '@/utils/type'
 
-const PerhitunganTabel = ({ alternatif, kriteria }: { alternatif: AlternatifPenilaian[], kriteria: KriteriaSubKriteria[] }) => {
+const PerhitunganTabel = ({ alternatif, kriteria }: { alternatif: rAlternatifPenilaian[], kriteria: KriteriaSubKriteria[] }) => {
 
-    const nilaiPreferensi = (penilaian : Penilaian[]) => {
+    const nilaiPreferensi = (penilaian : rPenilaian[]) => {
         const nilai = getPreferensi(penilaian, kriteria)
         
         return nilai

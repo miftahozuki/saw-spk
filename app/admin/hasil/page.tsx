@@ -3,7 +3,7 @@ import { PrintButton } from "@/components/button"
 import { PerankinganTable } from "@/components/perankingan-table"
 import { SkeletonTablePerankingan } from "@/components/skeleton"
 import { getalternatifs, getKriteria, normalisasi, getPreferensi } from "@/lib/data"
-import { Penilaian } from "@prisma/client"
+import { rPenilaian } from "@/utils/type"
 import { Suspense } from "react"
 
 const HasilPage = async() => {
@@ -11,7 +11,7 @@ const HasilPage = async() => {
   const kriteria = await getKriteria();
   const r = normalisasi(alternatifs, kriteria);
 
-  const nilai = (nilai: Penilaian[]) => {
+  const nilai = (nilai: rPenilaian[]) => {
     
       const result = getPreferensi(nilai, kriteria);
       return result;
