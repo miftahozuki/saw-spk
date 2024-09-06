@@ -5,7 +5,7 @@ import { Icons } from "@/components/Icon";
 import { useFormStatus } from "react-dom";
 import clsx from "clsx";
 import PdfTemplate from "./template-pdf";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import {logout} from "@/lib/action"
 
@@ -117,6 +117,31 @@ export const EditNilaiButton = ({hidden, id}:{hidden:boolean, id:number}) => {
     <Icons.edit className="me-2" size={20}/>
     <small>Edit</small>
   </Link>
+  )
+}
+
+export const ClockButton = () => {
+  const [time, setTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date())
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const Clock = (date : Date) => {
+    const jam = String(date.getHours()).padStart(2, '0')
+    const menit = String(date.getMinutes()).padStart(2, '0')
+    const detik = String(date.getSeconds()).padStart(2, '0')
+
+    return `${jam} : ${menit} : ${detik}`
+  }
+
+  return (
+    <div className="btn">
+      <span suppressHydrationWarning>{Clock(time)}</span>
+    </div>
   )
 }
 

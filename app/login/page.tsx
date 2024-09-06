@@ -1,4 +1,4 @@
-import { LoginButton } from "@/components/button"
+import { ClockButton, LoginButton } from "@/components/button"
 import { login } from "@/lib/action"
 
 const LoginPage = () => {
@@ -79,7 +79,7 @@ const LoginPage = () => {
             <div className="hr-text">Jam</div>
             <div className="card-body">
                 <div className="d-flex justify-content-center">
-                    <button className="btn clock">20 : 25 : 10</button>
+                    <ClockButton/>
                 </div>
             </div>
         </div>

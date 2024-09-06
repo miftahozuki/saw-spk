@@ -1,29 +1,12 @@
 "use client"
 
-import React, { useEffect, useState } from "react";
 import Link from 'next/link';
 import { Icons } from "@/components/Icon";
 import Image from 'next/image';
 import { usePathname } from "next/navigation";
-import { LogoutButton } from "@/components/button";
+import { ClockButton, LogoutButton } from "@/components/button";
 
 export default function NavBar() {
-  const [time, setTime] = useState(new Date())
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTime(new Date())
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const Clock = (date: Date) => {
-    const jam = String(date.getHours()).padStart(2, '0')
-    const menit = String(date.getMinutes()).padStart(2, '0')
-    const detik = String(date.getSeconds()).padStart(2, '0')
-
-    return `${jam}:${menit}:${detik}`
-  }
 
   const pathname = usePathname()
 
@@ -66,9 +49,7 @@ export default function NavBar() {
           <div className="navbar-nav flex-row order-md-last">
             <div className="nav-item d-none d-md-flex me-3">
               <div className="btn-list">
-                <div className="btn">
-                  <span suppressHydrationWarning>{Clock(time)}</span>
-                </div>
+                <ClockButton/>
               </div>
             </div>
             <div className="d-none d-md-flex">
