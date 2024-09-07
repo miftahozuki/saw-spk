@@ -5,6 +5,7 @@ import { JenisKriteria } from "@prisma/client";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { loginSchema } from "./zod";
 
 export const saveAlternatif = async (formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
@@ -241,24 +242,35 @@ export const getUserByUsername = async(username: string) => {
   }
 }
 
-export const login = async(formData: FormData) => {
+export const login = async(prevState: unknown, formData: FormData) => {
  const data = {
   username: formData.get("username"),
   password: formData.get("pw"),
   role: 'Admin',
   redirectTo: "/admin/dashboard"
  }
- 
+
+ const validatedData = loginSchema.safeParse(data)
+ if(!validatedData.success) {
+  return {
+    Error: {
+      auth: undefined,
+      message: validatedData.error.flatten().fieldErrors
+    }
+  }
+ }
+
  try {
-  await signIn("credentials", data)
+  await signIn("credentials", validatedData.data)
   
  } catch (error) {
-  if (error instanceof AuthError) {
+   
+   if (error instanceof AuthError) {
     switch (error.type) {
       case "CredentialsSignin":
-        return { error: "Username atau Password salah!"};
+        return { Error: {auth: "Username atau Password salah!"}};
       default:
-        return {error: "something went wrong!"}
+        return {Error: {auth: "something went wrong!"}}
     }
   }
   throw error

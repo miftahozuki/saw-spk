@@ -11,14 +11,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       credentials: {
         username: {},
-        password: {}
+        password: {},
       },
       authorize: async(credentials) => {
         let user = null
         user = await getUserByUsername(credentials.username as string)
         
         if (!user) {
-          throw new Error("User not found.")
+          return null
         }
 
         const isMatch = bcrypt.compareSync(
@@ -26,9 +26,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         )
 
         if(!isMatch) {
-          throw new Error("Password salah")
+          return null
         }
-        console.log(user);
+        // console.log(user);
         
         return user
       }
