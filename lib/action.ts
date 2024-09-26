@@ -2,7 +2,7 @@
 import { signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { JenisKriteria } from "@prisma/client";
-import { AuthError } from "next-auth";
+import { AuthError, User } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { loginSchema } from "./zod";
@@ -25,6 +25,7 @@ export const saveAlternatif = async (formData: FormData) => {
   
   revalidatePath("admin/alternatif");
   redirect("/admin/alternatif");
+
 };
 
 export const deleteAlternatif = async (id: number) => {
@@ -41,6 +42,26 @@ export const deleteAlternatif = async (id: number) => {
 
   revalidatePath("/admin/alternatif");
 };
+
+export const updateUser = async(id: string, formData: FormData) => {
+  const data = Object.fromEntries(formData.entries())
+  try {
+    await prisma.user.update({
+      data: {
+        name: data.name.toString(),
+        email: data.email.toString(),
+        username: data.username.toString()
+      },
+      where: {id}
+    })
+  } catch (error) {
+    console.error(error)
+    return {message: "Failed to update alternatif."}
+  }
+
+  return {message: "success"}
+  
+}
 
 export const updateAlternatif = async (id: number, formData: FormData) => {
   const data = Object.fromEntries(formData.entries());

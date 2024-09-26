@@ -17,7 +17,8 @@ export default function NavBar() {
     alternatif: '/admin/alternatif',
     penilaian: '/admin/penilaian',
     perhitungan: '/admin/perhitungan',
-    hasil: '/admin/hasil'
+    hasil: '/admin/hasil',
+    pengaturan: '/admin/pengaturan'
   }
 
   return (
@@ -194,9 +195,9 @@ export default function NavBar() {
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <a href="{{ url('admin/profile') }}" className="dropdown-item">
+                <Link href={routes.pengaturan} className="dropdown-item">
                   Settings
-                </a>
+                </Link>
                 <LogoutButton/>
               </div>
             </div>
