@@ -1,11 +1,15 @@
 import { Icons } from "@/components/Icon";
 import { EditKriteria } from "@/components/edit-form";
-import { getKriteriaById } from "@/lib/data";
+import { getKriteria, getKriteriaById } from "@/lib/data";
 import { notFound } from "next/navigation";
 
 const UpdateKriteriaPage = async({params}: {params:{id:string}}) => {
     const id = parseInt(params.id)
-    const kriteria = await getKriteriaById(id)
+    const kriterias = await getKriteria()
+    const kriteria = kriterias.find(k => k.id === id)
+    const totalbobot = kriterias.reduce((acc, k) => {
+      return acc + (k.bobot ?? 0)
+    }, 0)
 
     if(!kriteria){
         notFound()
@@ -37,7 +41,7 @@ const UpdateKriteriaPage = async({params}: {params:{id:string}}) => {
                     <div className="justify-content-center row g-3 mb-2">
                       <div className="col d-flex flex-column">
                         <div className="card-body">
-                        <EditKriteria kriteria={kriteria}/>
+                        <EditKriteria kriteria={kriteria} totalBobot={totalbobot}/>
                         </div>
                       </div>
                     </div>

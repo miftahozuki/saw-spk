@@ -1,15 +1,17 @@
+"use client"
+
 import { SubmitButton } from "@/components/button";
 import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
 import { inputPenilaian, saveAlternatif, saveKriteria, saveSubKriteria } from "@/lib/action";
 import { Kriteria, subKriteria } from "@prisma/client";
-import { log } from "console";
+import { useFormState } from "react-dom";
 
 type KriteriaSubKriteria = Kriteria &{
   subkriteria: subKriteria[]
 }
 
-export const CreateAlternatif = async () => {
+export const CreateAlternatif =  () => {
   return (
     <div className="row align-items-center">
       <form action={saveAlternatif}>
@@ -37,10 +39,12 @@ export const CreateAlternatif = async () => {
   );
 };
 
-export const CreateKriteria = async () => {
+export const CreateKriteria =  ({totalBobot}:{totalBobot:number}) => {
+  const [state, save] = useFormState(saveKriteria.bind(null, totalBobot), null)
+
   return (
     <>
-    <form action={saveKriteria}>
+    <form action={save}>
       <div className="row g-3">
         <div className="col-md">
           <div className="form-label">
@@ -75,10 +79,11 @@ export const CreateKriteria = async () => {
           </div>
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${state?.message ? 'is-invalid' : ''}`}
             name="bobot"
             placeholder="Masukkan Bobot"
           required/>
+           <div className="invalid-feedback">{state?.message}</div>
         </div>
         <div className="col-md">
           <div className="form-label">
@@ -102,7 +107,7 @@ export const CreateKriteria = async () => {
   );
 };
 
-export const CreateSubKriteria = async ({id}: {id:number}) => {
+export const CreateSubKriteria =  ({id}: {id:number}) => {
   const AddSubKriteria = saveSubKriteria.bind(null, id)
 
   return (

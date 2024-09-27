@@ -1,7 +1,13 @@
 import { Icons } from "@/components/Icon";
 import { CreateKriteria } from "@/components/create-form";
+import { getKriteria } from "@/lib/data";
 
-const AddKriteriaPage = () => {
+const AddKriteriaPage = async() => {
+  const kriteria = await getKriteria()
+  const totalBobot = kriteria.reduce((acc, k) => {
+    return acc + (k.bobot) 
+  }, 0)
+  
     return (
         <>
         <div className="page-header d-print-none">
@@ -28,7 +34,7 @@ const AddKriteriaPage = () => {
                     <div className="justify-content-center row g-3 mb-2">
                       <div className="col d-flex flex-column">
                         <div className="card-body">
-                        <CreateKriteria/>
+                        <CreateKriteria totalBobot={totalBobot}/>
                         </div>
                       </div>
                     </div>

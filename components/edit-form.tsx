@@ -1,3 +1,5 @@
+"use client"
+
 import { SubmitButton, UpdateButton } from "@/components/button";
 import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
@@ -14,8 +16,9 @@ import {
   updateSubKriteria,
   updatePenilaian,
 } from "@/lib/action";
+import { useFormState } from "react-dom";
 
-export const EditAlternatif = async ({
+export const EditAlternatif =  ({
   alternatif,
 }: {
   alternatif: Alternatif;
@@ -49,11 +52,15 @@ export const EditAlternatif = async ({
   );
 };
 
-export const EditKriteria = async ({ kriteria }: { kriteria: Kriteria }) => {
-  const UpdateKriteriaWithId = updateKriteria.bind(null, kriteria.id);
+export const EditKriteria =  ({ kriteria, totalBobot }: { kriteria: Kriteria, totalBobot: number }) => {
+  const bobot = totalBobot - kriteria.bobot
+  const UpdateKriteriaWithId = updateKriteria.bind(null, bobot, kriteria.id);
+  const [state, update] = useFormState( UpdateKriteriaWithId, null)
+  
+  
   return (
     <>
-      <form action={UpdateKriteriaWithId}>
+      <form action={update}>
         <div className="row g-3">
           <div className="col-md">
             <div className="form-label">
@@ -92,12 +99,13 @@ export const EditKriteria = async ({ kriteria }: { kriteria: Kriteria }) => {
             </div>
             <input
               type="text"
-              className="form-control"
+              className={`form-control ${state?.message ? 'is-invalid' : ''}`}
               name="bobot"
               placeholder="Masukkan Bobot"
               defaultValue={kriteria.bobot}
               required
             />
+            <div className="invalid-feedback">{state?.message}</div>
           </div>
           <div className="col-md">
             <div className="form-label">
@@ -125,7 +133,7 @@ export const EditKriteria = async ({ kriteria }: { kriteria: Kriteria }) => {
   );
 };
 
-export const EditSubKriteria = async ({
+export const EditSubKriteria =  ({
   subkriteria,
 }: {
   subkriteria: subKriteria;

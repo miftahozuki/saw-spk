@@ -81,8 +81,14 @@ export const updateAlternatif = async (id: number, formData: FormData) => {
   redirect("/admin/alternatif");
 };
 
-export const saveKriteria = async (formData: FormData) => {
+export const saveKriteria = async (bobot: number, prevState:unknown ,formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
+
+  if(bobot + Number(data.bobot) > 100) {
+    
+    return {message: "Bobot lebih dari 100%, harap kurangi bobot dari kriteria lain."}
+  }
+  
 
   try {
     await prisma.kriteria.create({
@@ -102,9 +108,13 @@ export const saveKriteria = async (formData: FormData) => {
   redirect("/admin/kriteria");
 };
 
-export const updateKriteria = async (id: number, formData: FormData) => {
+export const updateKriteria = async (bobot: number, id: number, prevState:unknown ,formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
 
+  if(bobot + Number(data.bobot) > 100) {
+    return {message: "Bobot lebih dari 100%, harap kurangi bobot dari kriteria lain."}
+  }
+  
   try {
     await prisma.kriteria.update({
       data: {
