@@ -97,6 +97,7 @@ export const EditKriteria =  ({ kriteria, totalBobot }: { kriteria: Kriteria, to
               <i className="bi bi-envelope-at-fill me-2" />
               Bobot Kriteria
             </div>
+            <div className="input-group">
             <input
               type="text"
               className={`form-control ${state?.message ? 'is-invalid' : ''}`}
@@ -105,7 +106,11 @@ export const EditKriteria =  ({ kriteria, totalBobot }: { kriteria: Kriteria, to
               defaultValue={kriteria.bobot}
               required
             />
+            <span className="input-group-text">
+              %
+            </span>
             <div className="invalid-feedback">{state?.message}</div>
+            </div>
           </div>
           <div className="col-md">
             <div className="form-label">

@@ -43,7 +43,7 @@ const PerhitunganTabel = ({ alternatif, kriteria }: { alternatif: rAlternatifPen
                                     <td className="text-center">{idx + 1}</td>
                                     <td>{alternatif.nama}</td>
                                     <td>SUM {alternatif.penilaian.map((alternatif) => (
-                                        <span key={alternatif.id}>({alternatif.nilai} x {kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot} ) </span>
+                                        <span key={alternatif.id}>({alternatif.nilai} x {kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot}% ) </span>
                                     ))}</td>
                                     <td>{nilaiPreferensi(alternatif.penilaian)}</td>
                                 </tr>

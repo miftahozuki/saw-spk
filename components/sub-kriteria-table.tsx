@@ -16,10 +16,12 @@ const SubKriteriaTable = async() => {
             <Icons.tabel className="me-2" />
             {kriteria.nama} ({kriteria.kode})
           </h3>
-          <AddButton href={`/admin/kriteria/subkriteria/add/${kriteria.id}`}/>
+          {kriteria.nama !== 'Masa Kerja' ? (
+            <AddButton href={`/admin/kriteria/subkriteria/add/${kriteria.id}`}/>
+          ): ''}
         </div>
         <div className="table-responsive mx-4 mt-3">
-          <table id="tabel" className="table table-vcenter table-nowrap">
+          {kriteria.nama !== 'Masa Kerja' ? (<table id="tabel" className="table table-vcenter table-nowrap">
             <thead>
               <tr>
                 {/* <th scope="col">No.</th> */}
@@ -37,7 +39,6 @@ const SubKriteriaTable = async() => {
             <tbody>
               {kriteria.subkriteria.map((subkriteria, idx) => (
               <tr key={subkriteria.id}>
-                {/* <td className="text-center">{idx +1}</td> */}
                 <td>{subkriteria.nama}</td>
                 <td className="text-center">{subkriteria.nilai}</td>
                 <td className="d-flex justify-content-center">
@@ -51,7 +52,9 @@ const SubKriteriaTable = async() => {
               </tr>
               ))}
             </tbody>
-          </table>
+          </table>): (
+            <p className="text-center">Tidak memiliki Sub Kriteria.</p>
+          )}
         </div>
       </div>
     ))}

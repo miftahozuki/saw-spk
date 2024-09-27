@@ -101,7 +101,7 @@ export const saveKriteria = async (bobot: number, prevState:unknown ,formData: F
     });
   } catch (error) {
     console.error(error);
-    return { message: "Failed to cretate kriteria." };
+    return { message: "Failed to create kriteria." };
   }
 
   revalidatePath("/admin/kriteria");
@@ -127,7 +127,7 @@ export const updateKriteria = async (bobot: number, id: number, prevState:unknow
     });
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to update kriteria");
+    return {message: "Failed to update kriteria"};
   }
   revalidatePath("/admin/kriteria");
   redirect("/admin/kriteria");

@@ -212,7 +212,7 @@ export const getPreferensi = (penilaian : rPenilaian[], kriteria: KriteriaSubKri
         const bobot = kriteria.find((kriteria) => alternatif.kriteriaId === kriteria.id)?.bobot
         const nilai = alternatif.nilai ?? 0
 
-        return acc + (bobot? nilai * bobot : 0)
+        return acc + (bobot? nilai * (bobot/100) : 0)
     }, 0)
     
     return Number.isInteger(nilai) ? nilai: nilai.toFixed(2)

@@ -35,7 +35,7 @@ const KriteriaTable = async() => {
               <td>{idx +1}</td>
               <td className="text-center">{kriteria.kode}</td>
               <td className="text-center">{kriteria.nama}</td>
-              <td className="text-center">{kriteria.bobot}</td>
+              <td className="text-center">{kriteria.bobot} %</td>
               <td className="text-center text-capitalize">{kriteria.jenis}</td>
               <td className="d-flex justify-content-center">
                 <div className="btn-list flex-nowrap">

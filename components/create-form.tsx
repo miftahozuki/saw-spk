@@ -77,13 +77,18 @@ export const CreateKriteria =  ({totalBobot}:{totalBobot:number}) => {
             <i className="bi bi-envelope-at-fill me-2" />
             Bobot Kriteria
           </div>
+          <div className="input-group">
           <input
             type="text"
             className={`form-control ${state?.message ? 'is-invalid' : ''}`}
             name="bobot"
             placeholder="Masukkan Bobot"
           required/>
+          <span className="input-group-text">
+            %
+          </span>
            <div className="invalid-feedback">{state?.message}</div>
+          </div>
         </div>
         <div className="col-md">
           <div className="form-label">

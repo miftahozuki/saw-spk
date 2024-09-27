@@ -32,7 +32,7 @@ export const BobotTable = async({kriteria}:{kriteria:KriteriaSubKriteria[]}) => 
                 <tbody>
                     <tr>
                     {kriteria.map((kriteria) => (
-                        <td key={kriteria.id} className="text-center">{kriteria.bobot}</td>
+                        <td key={kriteria.id} className="text-center">{kriteria.bobot} %</td>
                     ))}
                     </tr>
            
