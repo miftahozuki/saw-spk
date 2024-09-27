@@ -175,7 +175,7 @@ export const EditSubKriteria = async ({
   );
 };
 
-export const EditPenilaian = ({id,
+export const EditPenilaian = ({ id,
   alternatif,
   kriteria,
 }: {
@@ -185,6 +185,13 @@ export const EditPenilaian = ({id,
 }) => {
 
   const updateNilai = updatePenilaian.bind(null, id)
+
+  const convertMS = (x: number | null | undefined) => {
+    if(!x) {
+      return ''
+    }
+    return (x - 5) / 3 + 1
+  }
 
   return (
     <>
@@ -197,36 +204,38 @@ export const EditPenilaian = ({id,
               <i className="bi bi-envelope-at-fill me-2" />
               {kriteria.nama}
             </div>
-            <select
-              className="form-select"
-              // name={`${kriteria.id}`}
-              name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}` }
-              defaultValue={
-                alternatif.penilaian.find(
-                  (nilai) => nilai.kriteriaId === kriteria.id
-                )?.subkriteriaId ?? 'default'
-              }
-            >
-              <option value={'default'} disabled>Belum di nilai</option>
-              {kriteria.subkriteria.map((subkriteria) => (
-                <option key={subkriteria.id} value={subkriteria.id}>
-                  {subkriteria.nama}
-                </option>
-              ))}
-            </select>
+            {
+              kriteria.nama == 'Masa Kerja' ? (
+                <div className="input-group mb-2">
+                  <input name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} type="number" className="form-control" defaultValue={convertMS(alternatif.penilaian.find((nilai) => nilai.kriteriaId === kriteria.id)?.nilai)} data-kriteria={kriteria.nama} required/>
+                  <input type="hidden" name={`id-${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} value={kriteria.nama}/>
+                  <span className="input-group-text">
+                    Tahun
+                  </span>
+                </div>
+              ) : (
+                <select
+                  className="form-select"
+                  // name={`${kriteria.id}`}
+                  name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`}
+                  defaultValue={
+                    alternatif.penilaian.find(
+                      (nilai) => nilai.kriteriaId === kriteria.id
+                    )?.subkriteriaId ?? 'default'
+                  }
+                >
+                  <option value={'default'} disabled>Belum di nilai</option>
+                  {kriteria.subkriteria.map((subkriteria) => (
+                    <option key={subkriteria.id} value={subkriteria.id}>
+                      {subkriteria.nama}
+                    </option>
+                  ))}
+                </select>
+              )
+            }
+            <input type="hidden" name={`id-${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} value={kriteria.nama}/>
           </div>
 
-          //   <div className="col-md">
-          //     <div className="form-label">
-          //       <i className="bi bi-envelope-at-fill me-2" />
-          //       Jenis Kriteria
-          //     </div>
-          //     <select className="form-select" name="jenis" defaultValue={1}>
-          //       <option>Benefit</option>
-          //       <option>Cost</option>
-          //     </select>
-          //   </div>
-          // </div>
         ))}
 
         <div className=" bg-transparent mt-4">

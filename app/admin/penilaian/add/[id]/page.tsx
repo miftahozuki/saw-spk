@@ -37,7 +37,7 @@ const AddPenilaianPage = async({params}: {params: {id: string}}) => {
                 <div className="justify-content-center row g-3 mb-2">
                   <div className="col d-flex flex-column">
                     <div className="card-body">
-                        <CreatePenilaian id={alternatif.id} kriteria={kriteria}/>
+                        <CreatePenilaian id={alternatif.id} kriterias={kriteria}/>
                     </div>
                   </div>
                 </div>

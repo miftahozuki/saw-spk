@@ -63,6 +63,7 @@ model Penilaian {
   subkriteriaId Int?
   alternatif Alternatif @relation(fields: [alternatifId], references: [id], onDelete: Cascade)
   alternatifId Int
+  nilai Int?
 }
 
 model User {

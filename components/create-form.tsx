@@ -3,6 +3,7 @@ import { Icons } from "@/components/Icon";
 import { BackButton } from "@/components/back-button";
 import { inputPenilaian, saveAlternatif, saveKriteria, saveSubKriteria } from "@/lib/action";
 import { Kriteria, subKriteria } from "@prisma/client";
+import { log } from "console";
 
 type KriteriaSubKriteria = Kriteria &{
   subkriteria: subKriteria[]
@@ -144,18 +145,31 @@ export const CreateSubKriteria = async ({id}: {id:number}) => {
   );
 };
 
-export const CreatePenilaian = ({kriteria, id}:{kriteria: KriteriaSubKriteria[], id: number}) => {
-  const inputNilai = inputPenilaian.bind(null, id)
+export const CreatePenilaian = ({kriterias, id}:{kriterias: KriteriaSubKriteria[], id: number}) => {
+  
+  const kriteria = kriterias.map(({subkriteria, ...kriteria}) => kriteria)
+
+  const inputNilai = inputPenilaian.bind(null, kriteria, id)
 
   return (
     <>
     <form action={inputNilai}>
-      {kriteria.map((kriteria) => (
+      {kriterias.map((kriteria) => (
         <div key={kriteria.id} className="col-md mb-3">
           <div className="form-label">
             <i className="bi bi-envelope-at-fill me-2" />
             {kriteria.nama}
           </div>
+          {
+            kriteria.nama === 'Masa Kerja' ? (
+              <div className="input-group mb-2">
+                  <input name={`${kriteria.id}`} type="number" className="form-control" placeholder="Masukkan Masa Kerja" data-kriteria={kriteria.nama}/>
+                  <span className="input-group-text">
+                    Tahun
+                  </span>
+                </div>
+            ): (
+
           <select
             className="form-select"
             name={`${kriteria.id}`}
@@ -166,6 +180,8 @@ export const CreatePenilaian = ({kriteria, id}:{kriteria: KriteriaSubKriteria[],
               </option>
             ))}
           </select>
+            )
+          }
         </div>
       ))}
       <div className=" bg-transparent mt-4">

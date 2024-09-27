@@ -48,7 +48,11 @@ export const MatriksKeputusanTable = ({
                     
                     <td key={kriteria.id}>
                       {
+                       kriteria.nama === 'Masa Kerja' ? (
+                        alternatif.penilaian.find((k) => k.kriteriaId === kriteria.id)?.nilai
+                       ) : (
                         kriteria.subkriteria.find(sub => sub.id === getSubId(alternatif, kriteria.id))?.nilai
+                       )
                       }
                     </td>
                   ))}

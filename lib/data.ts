@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { Penilaian, subKriteria } from "@prisma/client";
+import { Kriteria, Penilaian, subKriteria } from "@prisma/client";
 import { AlternatifPenilaian, KriteriaSubKriteria, rPenilaian } from "@/utils/type";
 import { unstable_noStore as noStore } from "next/cache";
 
@@ -94,16 +94,25 @@ export const getSubKriteriaByID = async (id: number) => {
 
 // Perhitungan Metode SAW
 
-const getMax = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[]) => {
+const getMax = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[], kriteria: Kriteria[]) => {
     
     const maxValue: { [kriteriaId: number]: number } = {}
     alternatif.forEach(alternatif => {
         alternatif.penilaian.forEach(penilaian => {
             const { kriteriaId, subkriteriaId } = penilaian;
-            const nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
+            const kriteriaName = kriteria.find(k => k.id === kriteriaId)?.nama
+            let nilai: number;
+            switch(kriteriaName) {
+                case 'Masa Kerja':
+                     nilai = penilaian.nilai ?? 0
+                    break;
+                default:
+                     nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
+            }
             
             if (!maxValue[kriteriaId] || nilai > maxValue[kriteriaId]) {
                 maxValue[kriteriaId] = nilai
+            
             }
         })
     })
@@ -112,13 +121,21 @@ const getMax = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[]) =
 }
 
 
-const getMin = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[]) => {
+const getMin = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[], kriteria:Kriteria[]) => {
     const minValue: { [kriteriaId: number]: number } = {}
 
     alternatif.forEach(alternatif => {
         alternatif.penilaian.forEach(penilaian => {
             const { kriteriaId, subkriteriaId } = penilaian;
-            const nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
+            const kriteriaName = kriteria.find(k => k.id === kriteriaId)?.nama
+            let nilai: number;
+            switch(kriteriaName) {
+                case 'Masa Kerja':
+                     nilai = penilaian.nilai ?? 0
+                    break;
+                default:
+                     nilai = subKriteria.find(sub => sub.id === subkriteriaId)?.nilai ?? 0
+            }
 
             if (!minValue[kriteriaId] || nilai < minValue[kriteriaId]) {
                 minValue[kriteriaId] = nilai
@@ -133,25 +150,39 @@ const getNilai = (subId: number, subkriteria: subKriteria[]) => {
     return subkriteria.find(sub => sub.id === subId)?.nilai ?? 0
 }
 
-export const normalisasi = (alternatif: AlternatifPenilaian[], kriteria: KriteriaSubKriteria[]) => {
+export const normalisasi = (alternatif: AlternatifPenilaian[], kriterias: KriteriaSubKriteria[]) => {
 
-    const subkriteria = kriteria.flatMap(k => {
+    const subkriteria = kriterias.flatMap(k => {
        return k.subkriteria
     })
 
-    const maxValue = getMax(alternatif, subkriteria)
-    const minValue = getMin(alternatif, subkriteria)
+    const kriteria = kriterias.map(({ subkriteria, ...kriteria }) => kriteria);
+
+ 
+
+    const maxValue = getMax(alternatif, subkriteria, kriteria)
+    const minValue = getMin(alternatif, subkriteria, kriteria)
+    
     
     const ternormalisasi = alternatif.map(alternatif => ({
         ...alternatif,
         penilaian: alternatif.penilaian.map(penilaian => {
-            const criteria = kriteria.find(k => k.id === penilaian.kriteriaId)
+            const criteria = kriterias.find(k => k.id === penilaian.kriteriaId)
             if (!criteria) {
                 throw new Error('Something went wrong')
             }
 
             let normalisasi: number
-            const nilai = getNilai(penilaian.subkriteriaId ?? 0, subkriteria)
+            const kriteriaName = kriteria.find(k => k.id === penilaian.kriteriaId)?.nama
+            let nilai;
+            switch(kriteriaName) {
+                case 'Masa Kerja':
+                    nilai = penilaian.nilai ?? 0
+                    break;
+                default:
+                    nilai = getNilai(penilaian.subkriteriaId ?? 0, subkriteria)
+            }
+            
 
             switch (criteria.jenis) {
                 case "Benefit":
