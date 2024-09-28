@@ -6,8 +6,7 @@ import { AuthError, User } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { loginSchema } from "./zod";
-import { KriteriaSubKriteria } from "@/utils/type";
-import { create } from "domain";
+import { errorMessage } from "@/utils/type";
 
 export const saveAlternatif = async (formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
@@ -208,34 +207,47 @@ const convertMS = (x: number) => {
 export const inputPenilaian = async (
   kriteria: Kriteria[],
   id: number,
+  prevState: unknown,
   formData: FormData
 ) => {
   const data = Object.fromEntries(formData.entries());
+  const namaKriteria = (kId: number) => kriteria.find((k) => k.id === kId)?.nama;
+
   const penilaian = Object.keys(data).map((key) => {
-    const k = kriteria.find((k) => k.id === Number(key))?.nama;
+    const nilai = Number(data[key])
+    const k = namaKriteria(Number(key))
 
     return {
       kriteriaId: Number(key),
-      subkriteriaId: k !== "Masa Kerja" ? Number(data[key]) : null,
-      nilai: k === "Masa Kerja" ? convertMS(Number(data[key])) : null,
+      subkriteriaId: !(k === "Masa Kerja" || k === "Kehadiran") ? nilai: null,
+      nilai: k === "Masa Kerja" ? convertMS(nilai) : k === "Kehadiran" ? nilai : null,
       alternatifId: id,
     };
   });
 
   const nilai = penilaian.filter((item) => !isNaN(item.kriteriaId));
 
+  const kehadiran = nilai.find(k => k.kriteriaId === kriteria.find(k => k.nama === 'Kehadiran')?.id)
+  if(kehadiran && kehadiran.nilai !== null && kehadiran.nilai > 100) {
+    return {
+      message: {Kehadiran: "Kehadiran maksimal adalah 100%."} as errorMessage
+    } 
+  }
+  
+
   try {
     await prisma.penilaian.createMany({ data: nilai });
   } catch (error) {
     console.error(error);
-    return { message: "Failed to input nilai alternatif." };
+    return { message: {Header: "Failed to input nilai alternatif."} as errorMessage };
   }
 
   revalidatePath("/admin/penilaian");
   redirect("/admin/penilaian");
 };
 
-export const updatePenilaian = async (id: number, formData: FormData) => {
+// ternary ?
+export const updatePenilaian = async (id: number, prevState: unknown ,formData: FormData) => {
   const data = Object.fromEntries(formData.entries());
   const penilaian = Object.keys(data)
     .filter((key) => !key.startsWith("id-"))
@@ -250,6 +262,14 @@ export const updatePenilaian = async (id: number, formData: FormData) => {
       };
     });
 
+  const kehadiran = penilaian.find(k => k.nama === 'Kehadiran')
+  if(kehadiran && kehadiran.nilai > 100) {
+    return {message:
+      {Kehadiran: "Nilai maksimal kehadiran adalah 100%."} as errorMessage
+    }
+  }
+  
+  
   const updates = [];
   const creates = [];
 
@@ -261,19 +281,20 @@ export const updatePenilaian = async (id: number, formData: FormData) => {
         id: { id: data.id },
         data: {
           alternatifId: data.alternatif,
-          nilai: data.nama === "Masa Kerja" ? convertMS(data.nilai) : null,
-          subkriteriaId: data.nama !== "Masa Kerja" ? data.nilai : null,
+          nilai: data.nama === "Masa Kerja" ? convertMS(data.nilai) : data.nama === "Kehadiran" ? data.nilai : null,
+          subkriteriaId: !(data.nama === 'Masa Kerja' || data.nama === 'Kehadiran') ? data.nilai : null,
         },
       });
     } else {
       creates.push({
         kriteriaId: id,
         alternatifId: data.alternatif,
-        nilai: data.nama === "Masa Kerja" ? convertMS(data.nilai) : null,
-        subkriteriaId: data.nama !== "Masa Kerja" ? data.nilai : null,
+        nilai: data.nama === "Masa Kerja" ? convertMS(data.nilai) : data.nama === "Kehadiran" ? data.nilai : null,
+        subkriteriaId: !(data.nama === 'Masa Kerja' || data.nama === 'Kehadiran') ? data.nilai : null,
       });
     }
-  }
+  } 
+
 
   try {
     if (creates.length > 0) {
@@ -292,7 +313,7 @@ export const updatePenilaian = async (id: number, formData: FormData) => {
     }
   } catch (error) {
     console.error(error);
-    return { message: "Failed to edit nilai alternatif." };
+    return { message: {Header: "Failed to edit nilai alternatif."} };
   }
 
   revalidatePath("/admin/penilaian");

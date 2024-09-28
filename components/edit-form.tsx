@@ -198,6 +198,7 @@ export const EditPenilaian = ({ id,
 }) => {
 
   const updateNilai = updatePenilaian.bind(null, id)
+  const [state, update] = useFormState(updateNilai, null)
 
   const convertMS = (x: number | null | undefined) => {
     if(!x) {
@@ -208,7 +209,7 @@ export const EditPenilaian = ({ id,
 
   return (
     <>
-      <form action={updateNilai}>
+      <form action={update}>
         {kriteria.map((kriteria) => (
           // <div className="row g-3 mt-2">
 
@@ -218,13 +219,14 @@ export const EditPenilaian = ({ id,
               {kriteria.nama}
             </div>
             {
-              kriteria.nama == 'Masa Kerja' ? (
+              kriteria.nama == 'Masa Kerja' || kriteria.nama === 'Kehadiran' ? (
                 <div className="input-group mb-2">
-                  <input name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} type="number" className="form-control" defaultValue={convertMS(alternatif.penilaian.find((nilai) => nilai.kriteriaId === kriteria.id)?.nilai)} data-kriteria={kriteria.nama} required/>
+                  <input name={`${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} type="number" className={`form-control ${state?.message[kriteria.nama] ? 'is-invalid' : ''}`} defaultValue={kriteria.nama === 'Masa Kerja' ? convertMS(alternatif.penilaian.find((nilai) => nilai.kriteriaId === kriteria.id)?.nilai) :  alternatif.penilaian.find((nilai) => nilai.kriteriaId === kriteria.id)?.nilai ?? ''} required/>
                   <input type="hidden" name={`id-${alternatif.penilaian.find(p => p.kriteriaId === kriteria.id)?.id ?? kriteria.id}`} value={kriteria.nama}/>
                   <span className="input-group-text">
-                    Tahun
+                    {kriteria.nama === 'Masa Kerja' ? 'Tahun' : '%'}
                   </span>
+                  <div className="invalid-feedback">{state?.message[kriteria.nama]}</div>
                 </div>
               ) : (
                 <select

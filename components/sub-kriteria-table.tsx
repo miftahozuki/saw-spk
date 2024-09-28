@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Icons } from "./Icon";
 import { AddButton, DeleteButton, EditButton } from "./button";
 import { getKriteria } from "@/lib/data";
@@ -16,12 +15,12 @@ const SubKriteriaTable = async() => {
             <Icons.tabel className="me-2" />
             {kriteria.nama} ({kriteria.kode})
           </h3>
-          {kriteria.nama !== 'Masa Kerja' ? (
+          {!(kriteria.nama === 'Masa Kerja' || kriteria.nama === 'Kehadiran') ? (
             <AddButton href={`/admin/kriteria/subkriteria/add/${kriteria.id}`}/>
           ): ''}
         </div>
         <div className="table-responsive mx-4 mt-3">
-          {kriteria.nama !== 'Masa Kerja' ? (<table id="tabel" className="table table-vcenter table-nowrap">
+          {!(kriteria.nama === 'Masa Kerja' || kriteria.nama === 'Kehadiran') ? (<table id="tabel" className="table table-vcenter table-nowrap">
             <thead>
               <tr>
                 {/* <th scope="col">No.</th> */}

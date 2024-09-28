@@ -15,3 +15,7 @@ export type rPenilaian = Penilaian & {
 export type KriteriaSubKriteria = Kriteria & {
   subkriteria: subKriteria[];
 };
+
+export type errorMessage = {
+  [key: string]: string;
+};

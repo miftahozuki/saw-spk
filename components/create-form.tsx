@@ -161,9 +161,15 @@ export const CreatePenilaian = ({kriterias, id}:{kriterias: KriteriaSubKriteria[
 
   const inputNilai = inputPenilaian.bind(null, kriteria, id)
 
+  const [state, save] = useFormState(inputNilai, null)
+  console.log(state?.message);
+  
+  
+  
+
   return (
     <>
-    <form action={inputNilai}>
+    <form action={save}>
       {kriterias.map((kriteria) => (
         <div key={kriteria.id} className="col-md mb-3">
           <div className="form-label">
@@ -171,12 +177,13 @@ export const CreatePenilaian = ({kriterias, id}:{kriterias: KriteriaSubKriteria[
             {kriteria.nama}
           </div>
           {
-            kriteria.nama === 'Masa Kerja' ? (
+            kriteria.nama === 'Masa Kerja' || kriteria.nama  === 'Kehadiran' ? (
               <div className="input-group mb-2">
-                  <input name={`${kriteria.id}`} type="number" className="form-control" placeholder="Masukkan Masa Kerja" data-kriteria={kriteria.nama}/>
+                  <input name={`${kriteria.id}`} type="number" className={`form-control ${state?.message[kriteria.nama] ? 'is-invalid' : ''}`} placeholder={`${kriteria.nama === 'Masa Kerja' ? 'Masukkan Masa Kerja' : 'Masukkan Kehadiran'}`}/>
                   <span className="input-group-text">
-                    Tahun
+                    {kriteria.nama === 'Masa Kerja' ? 'Tahun' : '%'}
                   </span>
+                  <div className="invalid-feedback">{state?.message[kriteria.nama]}</div>
                 </div>
             ): (
 

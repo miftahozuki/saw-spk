@@ -103,6 +103,7 @@ const getMax = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[], k
             const kriteriaName = kriteria.find(k => k.id === kriteriaId)?.nama
             let nilai: number;
             switch(kriteriaName) {
+                case 'Kehadiran':
                 case 'Masa Kerja':
                      nilai = penilaian.nilai ?? 0
                     break;
@@ -130,6 +131,7 @@ const getMin = (alternatif: AlternatifPenilaian[], subKriteria: subKriteria[], k
             const kriteriaName = kriteria.find(k => k.id === kriteriaId)?.nama
             let nilai: number;
             switch(kriteriaName) {
+                case 'Kehadiran':
                 case 'Masa Kerja':
                      nilai = penilaian.nilai ?? 0
                     break;
@@ -176,6 +178,7 @@ export const normalisasi = (alternatif: AlternatifPenilaian[], kriterias: Kriter
             const kriteriaName = kriteria.find(k => k.id === penilaian.kriteriaId)?.nama
             let nilai;
             switch(kriteriaName) {
+                case 'Kehadiran':
                 case 'Masa Kerja':
                     nilai = penilaian.nilai ?? 0
                     break;
